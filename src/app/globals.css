@@ -2,22 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-  [data-theme="light"] :root {
+
+:root {
     --background: #ffffff;
     --foreground: #000;
-    -webkit-text-fill-color:var(--foreground);
-  }
-
 }
-/* 
-@media (prefers-color-scheme: dark) { */
-  @layer base{
-    [data-theme="dark"] :root {
+
+
+
+@media (prefers-color-scheme: dark) { 
+    :root {
       --background: #000;
       --foreground: #fff;
-      -webkit-text-fill-color:var(--foreground);
     }
-  }
-/* } */
+  
+ }
 
+html{
+  color:var(--foreground);
+  background: var(--background);
+}

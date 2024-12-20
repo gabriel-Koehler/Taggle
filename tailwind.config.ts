@@ -9,33 +9,24 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme:{
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
+    extend: {},
   },
   daisyui: {
     themes:[
       {
         'light':{
-          background: "var(--background)",
-          foreground: "var(--foreground)",
-          primary: {
-            100:'#FF93'
-          },
+          "base-100": "#fff",
+          "base-content": "#000",
+          primary: "#F89",
           secondary: "#FF9F1C",
           success: "#00D6A0",
           info: "#00C0EA",
           warning: "#FFB045",
         },
         'dark':{
-          background: "var(--background)",
-          foreground: "var(--foreground)",
-          primary: {
-            100:'#FF93'
-          },
+          "base-100": "#000",
+          "base-content": "#fff",
+          primary:"#42B",
           secondary: "#FF9",
           success: "#00D",
           info: "#00C",
