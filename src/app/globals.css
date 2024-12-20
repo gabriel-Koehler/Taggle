@@ -6,6 +6,8 @@
 :root {
     --background: #ffffff;
     --foreground: #000;
+    --font-title: var(--font-darker-grotesque);
+  --font-body: var(--font-work-sans);
 }
 
 
@@ -14,6 +16,8 @@
     :root {
       --background: #000;
       --foreground: #fff;
+      --font-title: var(--font-darker-grotesque);
+      --font-body: var(--font-work-sans);
     }
   
  }

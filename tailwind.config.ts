@@ -9,7 +9,12 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme:{
-    extend: {},
+    extend: {
+      fontFamily:{
+        title: "var(--font-darker-grotesque)",
+        body: "var(--font-work-sans)",
+      }
+    },
   },
   daisyui: {
     themes:[
@@ -29,7 +34,7 @@ export default {
           primary:"#42B",
           secondary: "#FF9",
           success: "#00D",
-          info: "#00C",
+          info: "#00FFA1",
           warning: "#DA9",
         },
         }
