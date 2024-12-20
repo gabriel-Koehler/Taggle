@@ -17,7 +17,33 @@ export default {
     },
   },
   daisyui: {
-    themes:['light','dark'],
+    themes:[
+      {
+        'light':{
+          background: "var(--background)",
+          foreground: "var(--foreground)",
+          primary: {
+            100:'#FF93'
+          },
+          secondary: "#FF9F1C",
+          success: "#00D6A0",
+          info: "#00C0EA",
+          warning: "#FFB045",
+        },
+        'dark':{
+          background: "var(--background)",
+          foreground: "var(--foreground)",
+          primary: {
+            100:'#FF93'
+          },
+          secondary: "#FF9",
+          success: "#00D",
+          info: "#00C",
+          warning: "#DA9",
+        },
+        }
+    ],
+    // themes:['light','dark'],
     defaultTheme: 'light', // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: "dark", // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default

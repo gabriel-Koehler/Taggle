@@ -14,7 +14,7 @@ export default function Header(){
     }
   },[])
   return <>
-  <div className="w-full h-8 bg-red-300">
+  <div className="w-full h-8 bg-red-300 text-foreground">
     {theme}     
     <button onClick={()=>{
       setTheme('light')
