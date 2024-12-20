@@ -20,22 +20,24 @@ export default {
     themes:[
       {
         'light':{
-          "base-100": "#fff",
+          "base-100": "#F3F4F6",
           "base-content": "#000",
-          primary: "#F89",
+          primary: "#864EF6",
           secondary: "#FF9F1C",
-          success: "#00D6A0",
-          info: "#00C0EA",
-          warning: "#FFB045",
+          success: "#43B75D",
+          info: "#0095FF",
+          warning: "#FFAA00",
+          error:"#EE443F"
         },
         'dark':{
-          "base-100": "#000",
+          "base-100": "#131927",
           "base-content": "#fff",
-          primary:"#42B",
+          primary:"#864EF6",
           secondary: "#FF9",
-          success: "#00D",
-          info: "#00FFA1",
-          warning: "#DA9",
+          success: "#43B75D",
+          info: "#0095FF",
+          warning: "#FFAA00",
+          error:"#EE443F"
         },
         }
     ],
