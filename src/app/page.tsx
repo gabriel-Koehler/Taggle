@@ -1,14 +1,21 @@
-
+'use client'
 import Link from "next/link";
 
-export default function defaultPage(){
+import { useState } from "react";
+import Tiptap from "./components/TipTap";
+export default function defaultPage() {
+  const [record, setRecord] = useState({ title: '', body: '' });
 
-  return(
+  const handleSubmit = (data: any) => {
+    console.log("Form Data:", data);
+  };
+  return (
     <>
-    <div className="">
+      <div className="flex gap-4">
         <h1 className="font-title text-4xl " >This Defalut Page</h1>
         <Link className="font-body " href="/Login" >login</Link>
-    </div>
+    <Tiptap></Tiptap>
+      </div>
     </>
   )
 }
