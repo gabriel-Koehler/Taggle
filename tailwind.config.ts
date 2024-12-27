@@ -22,6 +22,7 @@ export default {
 
       },
       colors:{
+        primary: "#864EF6",
         success: "#43B75D",
           sucess800:"#256533",
           sucess700:"#308242",
@@ -76,13 +77,11 @@ export default {
         'light':{
           "base-100": "#F3EDFE",
           "base-content": "#000",
-          primary: "#864EF6",
 
         },
         'dark':{
-          base100: "#131927",
-          basecontent: "#fff",
-          primary: "#864EF6",
+          "base-100": "#131927",
+          "base-content": "#fff", 
 
         },
         }
@@ -94,6 +93,7 @@ export default {
     styled: true, // include daisyUI colors and design decisions for all components
     utils: true, // adds responsive and modifier utility classes
     prefix: "daisy", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
+    darkMode: ["[data-theme='dark']"],
     logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
     themeRoot: ":root", // The element that receives theme color CSS variables
   },

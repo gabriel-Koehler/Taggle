@@ -3,12 +3,17 @@ import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation";
 
 // import { useRouter } from "next/router";
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 
 export default function Header(){
   const router = usePathname();
+  const [mounted, setMounted] = useState(false);
   const {theme,setTheme }=useTheme()
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(()=>{
     
     if(theme=="dark"){
@@ -17,6 +22,7 @@ export default function Header(){
       document.documentElement.setAttribute('data-theme', 'light')
     }
   },[])
+  if (!mounted) return null;
   return <>
   {
     router!="/Login"?
