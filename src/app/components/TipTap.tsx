@@ -9,6 +9,7 @@ import FloatingMenu from '@tiptap/extension-floating-menu'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
+import { ColumnExtension } from "@gocapsule/column-extension";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -20,16 +21,20 @@ const Tiptap = () => {
                 HorizontalRule,
                 Paragraph,
                 Document,
-              
+                ColumnExtension
               
               ],
     content: '<p>Hello World! 🌎️</p>',
+    editorProps:{
+      attributes:{class:'size-96 focus-visible:outline-none'},
+    }
+
   })
   const MenuBar = ({editor}:{editor:Editor | null} ) =>{
     if(!editor) return null
     return (
       <div className="control-group">
-        <div className="button-group">
+        <div className="flex gap-2">
           <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}>
             H1
           </button>
@@ -54,13 +59,16 @@ const Tiptap = () => {
           <button onClick={() => editor.chain().focus().setHorizontalRule().run() } className={editor.isActive('highlight') ? 'is-active' : ''}>
             Highlight
           </button>
+          <button onClick={() => editor.chain().focus().setColumns(3).run()} className={editor.isActive('highlight') ? 'is-active' : ''}>
+            col
+          </button>
         </div>
       </div>
     )
   }
-  return <div className='flex-col'>
+  return <div className='w-full flex-col '>
   <MenuBar editor={editor} />
-  <EditorContent className='size-96' editor={editor} />
+  <EditorContent className='size-96 ' editor={editor} />
   </div>
 }
 
