@@ -31,7 +31,12 @@
  }
 
 html{
-
+  p,div,input,label{
+    font-family: var(--font-work-sans);
+  }
+  h1,h2,h3,h4,h5,h6{
+    font-family: var(--font-darker-grotesque);
+  }
   color:var(--foreground);
   background: var(--background);
   /* asdasd */

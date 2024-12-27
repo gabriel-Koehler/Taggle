@@ -10,6 +10,17 @@ export default {
   ],
   theme:{
     extend: {
+      screens:{
+        'sm': '319px',
+      // => @media (min-width: 576px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 960px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 1440px) { ... }
+
+      },
       colors:{
         success: "#43B75D",
           sucess800:"#256533",
