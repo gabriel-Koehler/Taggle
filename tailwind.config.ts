@@ -22,7 +22,7 @@ export default {
 
       },
       colors:{
-        primary: "#864EF6",
+        primaryColor: "#864EF6",
         success: "#43B75D",
           sucess800:"#256533",
           sucess700:"#308242",
@@ -31,7 +31,16 @@ export default {
           sucess300:"#81CF92",
           sucess200:"#A9DEB4",
           sucess100:"#C5E9CD",
-          info: "#0095FF",
+          gray800:"#212936",
+          gray700:"#394050",
+          gray600:"#4D5461",
+          gray500:"#6D717F",
+          gray400:"#9EA2AE",
+          gray300:"#D2D5DB",
+          gray200:"#E5E7EA",
+          gray100:"#F3F4F6",
+          gray50:"#F9FAFB",
+        info: "#0095FF",
           info800:"#00528C",
           info700:"#006AB5",
           info600:"#0088E8",
@@ -39,14 +48,14 @@ export default {
           info300:"#54B8FF",
           info200:"#8ACEFF",
           info100:"#B0DEFF",
-          warning: "#FFAA00",
+        warning: "#FFAA00",
           warning700:"#B57900",
           warning600:"#E89B00",
           warning400:"#FFBB33",
           warning300:"#FFC654",
           warning200:"#FFD88A",
           warning100:"#FFE5B0",
-          error:"#EE443F",
+        error:"#EE443F",
           error800:"#832523",
           error700:"#A9302D",
           error600:"#D93E39",
@@ -92,7 +101,6 @@ export default {
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
     utils: true, // adds responsive and modifier utility classes
-    prefix: "daisy", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
     darkMode: ["[data-theme='dark']"],
     logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
     themeRoot: ":root", // The element that receives theme color CSS variables

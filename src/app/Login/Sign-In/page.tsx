@@ -25,8 +25,8 @@ export default function SignIn(){
          </div>
          <Input name="Password" textError="um" InputChange={(value) => setPassword(value)}></Input>
          <div className="flex gap-2">
-           <button className="mt-8 daisybtn" onClick={()=>triggerAnimation()} >register</button>
-       <button className="mt-8 daisybtn-primary">Login</button>
+           <button className="mt-8 daisybtn" onClick={()=>triggerAnimation()} >Register</button>
+       <button className="mt-8 daisybtn-primary" onClick={()=>router.push('/Home')}>Login</button>
          </div>
   </>
 }

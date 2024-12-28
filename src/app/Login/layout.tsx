@@ -9,7 +9,7 @@ export default function loginLayout({children}:{children:ReactNode}) {
   const context=useContext(contextValues);
 
   return (<>
-    <div className="overflow-hidden w-full h-screen flex justify-center items-center">
+    <div className="fixed w-full h-screen flex justify-center items-center">
       <div className="flex justify-evenly items-center gap-32">
         <div className=" flex w-[280px] flex-col justify-center items-center">
           {/* logoname */}

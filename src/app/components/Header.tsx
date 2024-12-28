@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 
 // import { useRouter } from "next/router";
 import { useEffect, useState } from "react"
+import ThemeSwitcher from "./ThemeSwitcher";
 
 
 export default function Header(){
@@ -27,10 +28,12 @@ export default function Header(){
   {
     (router!="/Login/Sign-In" && router!="/Login/Sign-Up") ?
     // true?
-      <div className="w-full h-8 bg-red-300 text-foreground">
-        {router}
-        {theme}     
-        <button onClick={()=>{
+    <div className="w-full bg-inherit shadow-200 h-14">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div>
+          <button onClick={()=>{
           setTheme('light')
           document.documentElement.setAttribute('data-theme', 'light')
           }} >light</button>  
@@ -38,7 +41,21 @@ export default function Header(){
           setTheme('dark')
           document.documentElement.setAttribute('data-theme', 'dark')
           }}>dark</button>  
-      </div>:<></>
+        {/* <ThemeSwitcher></ThemeSwitcher> */}
+        </div>
+    </div>:null
+      // <div className="w-full h-8 bg-red-300 text-foreground">
+      //   {router}
+      //   {theme}     
+      //   <button onClick={()=>{
+      //     setTheme('light')
+      //     document.documentElement.setAttribute('data-theme', 'light')
+      //     }} >light</button>  
+      //   <button onClick={()=>{
+      //     setTheme('dark')
+      //     document.documentElement.setAttribute('data-theme', 'dark')
+      //     }}>dark</button>  
+      // </div>:<></>
   }
   </>
 }
