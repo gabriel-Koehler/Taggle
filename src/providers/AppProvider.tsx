@@ -1,4 +1,5 @@
 'use client'
+import ContextValuesProvider from "@/context/ContextValuesProvider";
 import { ThemeProvider } from "next-themes";
 import { ReactNode, useEffect, useState } from "react";
 
@@ -10,8 +11,11 @@ export default function appProvider({children}:{children:ReactNode}){
     }, []);
     if (!mounted) return <>{children}</>;
   return(
-    <ThemeProvider attribute="class" defaultTheme="light">
-      {children}
-    </ThemeProvider>
+    <ContextValuesProvider>
+      <ThemeProvider attribute="class" defaultTheme="light">
+        {children}
+      </ThemeProvider>
+    </ContextValuesProvider>
+    
   )
 }

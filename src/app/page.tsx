@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function defaultPage() {
   const route=useRouter();
   useLayoutEffect(()=>{
-    route.push('/Login')
+    route.push('/Login/Sign-In')
   },[])
   return (
     <></>

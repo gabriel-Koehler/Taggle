@@ -25,7 +25,7 @@ export default function Header(){
   if (!mounted) return null;
   return <>
   {
-    router!="/Login"?
+    (router!="/Login/Sign-In" && router!="/Login/Sign-Up") ?
     // true?
       <div className="w-full h-8 bg-red-300 text-foreground">
         {router}

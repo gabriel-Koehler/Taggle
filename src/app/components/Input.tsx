@@ -24,7 +24,7 @@ export default function Input(a:InputPorps){
           }
         </div>:null
       }
-      <input className={"w-full bg-gray-50 border border-gray-200 rounded-md px-2 py-1 focus-visible:outline-[#864EF6] "+(a.iconLeft!=null?'ps-10':'')
+      <input className={"w-full dark:bg-gray-600 bg-gray-50 border border-gray-200 rounded-md px-2 py-1 focus-visible:outline-[#864EF6] "+(a.iconLeft!=null?'ps-10':'')
       } id={a.name} type="" onChange={(e)=>a.InputChange(e.target.value)} >
 
         </input>
