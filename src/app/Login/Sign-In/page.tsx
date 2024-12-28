@@ -11,11 +11,9 @@ export default function SignIn(){
     const [password, setPassword] = useState()
     function triggerAnimation(): void {
       context?.setCircleScale(60); // Expande o círculo
-      setInterval(()=>{
-
-        router.push('/Login/Sign-Up')
-      },700)
+ 
       setTimeout(() => {
+        router.push('/Login/Sign-Up')
         context?.setCircleScale(1); // Reduz o círculo de volta ao original
       }, 900); // Duração de expansão antes de voltar
 
@@ -26,7 +24,9 @@ export default function SignIn(){
          <Input name="Username" textError="um" InputChange={(value) => setUsername(value)}></Input>
          </div>
          <Input name="Password" textError="um" InputChange={(value) => setPassword(value)}></Input>
-       <button className="mt-8 daisybtn">Login</button>
+         <div className="flex gap-2">
            <button className="mt-8 daisybtn" onClick={()=>triggerAnimation()} >register</button>
+       <button className="mt-8 daisybtn-primary">Login</button>
+         </div>
   </>
 }
