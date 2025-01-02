@@ -1,4 +1,49 @@
+'use client'
+import { useState } from "react"
+import Cards from "../components/Cards"
 export default function Home(){
+  const [testeData]=useState([
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+    {
+      title:"TitleTeste",
+      content: "Content content cont ajtn cont conbtelçasd çasdfkç",
+      createDate:"12/12/2024"
+    },
+  ])
   return<>
   <div className="flex gap-[14px] h-[92vh]">
     <div className="h-[90%] w-[10%]">
@@ -8,10 +53,16 @@ export default function Home(){
       </div>
 
     </div>
-    <div className="h-[90%] w-[20%]">
+    <div className="h-[90%] relative w-[20%]">
       <div className="h-11"></div>
-      <div className="h-full border border-primary100 ">
-        folder
+        <div className="w-full h-8 bg-gradient-to-t top-10 absolute to-base-100 from-transparent "></div>
+      <div className="overflow-y-auto flex flex-col gap-3 h-full scrollbar-thin scrollbar-thumb-lime-300">
+      {
+        testeData.map((item,index)=>(
+          <Cards title={item.title} content={item.content} createDate={item.createDate} />
+        ))
+      }  
+      <div className="w-full h-8 bg-gradient-to-b -bottom-11 absolute to-base-100 from-transparent "></div>
       </div>
 
     </div>

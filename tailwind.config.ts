@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import daisyui from "daisyui"
 import tailwindTypography from "@tailwindcss/typography"
+import  tailwindScrollBar from "tailwind-scrollbar"
 export default {
   darkMode:"class",
   content: [
@@ -115,5 +116,5 @@ export default {
     logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
     themeRoot: ":root", // The element that receives theme color CSS variables
   },
-  plugins: [daisyui,tailwindTypography],
+  plugins: [daisyui,tailwindScrollBar,tailwindTypography],
 } satisfies Config;
