@@ -5,12 +5,18 @@ import { usePathname } from "next/navigation";
 // import { useRouter } from "next/router";
 import { useEffect, useState } from "react"
 import ThemeSwitcher from "./ThemeSwitcher";
-
+import Input from "./Input";
+import logo from "../../../public/taggalgeLogo.svg"
+import Image from "next/image";
+import ConfigPopSide from "./ConfigPopSide";
 
 export default function Header(){
   const router = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [isConfig, setIsConfig] = useState(false);
   const {theme,setTheme }=useTheme()
+  const [serchValue,setSearchValue]= useState<string>('')
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -28,34 +34,28 @@ export default function Header(){
   {
     (router!="/Login/Sign-In" && router!="/Login/Sign-Up") ?
     // true?
-    <div className="w-full bg-inherit shadow-200 h-14">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div>
-          <button onClick={()=>{
-          setTheme('light')
-          document.documentElement.setAttribute('data-theme', 'light')
-          }} >light</button>  
-        <button onClick={()=>{
-          setTheme('dark')
-          document.documentElement.setAttribute('data-theme', 'dark')
-          }}>dark</button>  
-        {/* <ThemeSwitcher></ThemeSwitcher> */}
+    <div className="w-full gap-[14px] relative flex box-border justify-evenly bg-inherit shadow-200 h-14">
+      <div className="w-[10%] pl-4">
+        <Image src={logo} width={42} height={42} alt="Taggale icon"  />
+      </div>
+      <div className="w-[20%] flex items-center">
+
+        <Input InputChange={(value)=>setSearchValue(value)} />
+
+      </div>
+      <div className="w-[70%] justify-end flex items-center">
+        <div onClick={()=> setIsConfig(true)}>
+          click
         </div>
+        {
+          isConfig ? 
+          <ConfigPopSide onClose={()=>setIsConfig(false)} />:null
+        }
+        {/* <ThemeSwitcher></ThemeSwitcher> */}
+
+      </div>
     </div>:null
-      // <div className="w-full h-8 bg-red-300 text-foreground">
-      //   {router}
-      //   {theme}     
-      //   <button onClick={()=>{
-      //     setTheme('light')
-      //     document.documentElement.setAttribute('data-theme', 'light')
-      //     }} >light</button>  
-      //   <button onClick={()=>{
-      //     setTheme('dark')
-      //     document.documentElement.setAttribute('data-theme', 'dark')
-      //     }}>dark</button>  
-      // </div>:<></>
+
   }
   </>
 }

@@ -23,6 +23,14 @@ export default {
       },
       colors:{
         primaryColor: "#864EF6",
+          primary800:"#4A2B87",
+          primary700:"#5F37AF",
+          primary600:"#7A47E0",
+          primary400:"#9E71F8",
+          primary300:"#AE88F9",
+          primary200:"#C8AEFB",
+          primary100:"#D9C8FC",
+          primary50:"#F3EDFE",
         success: "#43B75D",
           sucess800:"#256533",
           sucess700:"#308242",
@@ -84,12 +92,14 @@ export default {
     themes:[
       {
         'light':{
-          "base-100": "#F3EDFE",
+          "base-100": "#F6F6F9",
+          "base-200": "#F3F4F6",
           "base-content": "#000",
 
         },
         'dark':{
           "base-100": "#131927",
+          "base-200": "#394050",
           "base-content": "#fff", 
 
         },
