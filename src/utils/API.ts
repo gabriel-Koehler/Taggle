@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const api=axios.create({
-  baseURL:"http://localhost:8080"
+  baseURL:"http://localhost:9999/",
 })
-export const get =async()=>{
-  return await api.get("/user")
-  .then((response)=>{
-    return JSON.stringify(response.data);
-  })
-  .catch((error)=>{
-    console.log(error)
-  });
+export const getAll =async()=>{
+  try{
+    const response =await api.get("/user")
+    return response.data
+  }catch(error){
+    alert(error)
+  }
 }
+export const getDocuments
