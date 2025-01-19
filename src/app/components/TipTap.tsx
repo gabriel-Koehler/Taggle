@@ -10,9 +10,16 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { ColumnExtension } from "@gocapsule/column-extension";
-
-const Tiptap = () => {
+interface propsTipTap{
+  title: string | null | undefined
+  content: string | null | undefined
+}
+const Tiptap = (props:propsTipTap) => {
+  
   const editor = useEditor({
+    onUpdate: ({editor}) => {
+      console.log(editor.getJSON())
+    },
     extensions: [StarterKit,
                 Heading.configure({levels:[1,2,3]}),
                 Text,
@@ -24,17 +31,18 @@ const Tiptap = () => {
                 ColumnExtension
               
               ],
-    content: '<p>Hello World! 🌎️</p>',
+    content: `${props.content}`,
     editorProps:{
-      attributes:{class:'size-96 focus-visible:outline-none'},
+      attributes:{class:'w-full   p-2 h-full focus-visible:outline-none'},
     }
 
   })
   const MenuBar = ({editor}:{editor:Editor | null} ) =>{
     if(!editor) return null
     return (
-      <div className="control-group">
+      <div className="control-group sticky top-0 p-2 z-10 bg-inherit border rounded-md border-gray-300">
         <div className="flex gap-2">
+          <span>{props.title}</span>
           <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}>
             H1
           </button>
@@ -66,9 +74,9 @@ const Tiptap = () => {
       </div>
     )
   }
-  return <div className='w-full flex-col '>
-  <MenuBar editor={editor} />
-  <EditorContent className='size-96 ' editor={editor} />
+  return <div className='overflow-y-scroll scrollbar-thin scrollbar-thumb-lime-300 dark:bg-gray600 bg-gray100 w-full h-full flex-col relative'>
+    <MenuBar editor={editor} />
+    <EditorContent className=' h-full w-full' editor={editor} />
   </div>
 }
 

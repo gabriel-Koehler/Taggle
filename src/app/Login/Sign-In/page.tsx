@@ -18,6 +18,15 @@ export default function SignIn(){
       }, 900); // Duração de expansão antes de voltar
 
   }
+  function triggerAnimationToHome(): void {
+    context?.setCircleScale(60); // Expande o círculo
+    
+    setTimeout(() => {
+      router.push('/Home')
+      context?.setCircleScale(1); // Reduz o círculo de volta ao original
+    }, 900); // Duração de expansão antes de voltar
+
+}
   return <>
     <h1 className="text-4xl mb-8">Login</h1>
         <div className="w-80">
@@ -26,7 +35,7 @@ export default function SignIn(){
          <Input name="Password" textError="um" InputChange={(value) => setPassword(value)}></Input>
          <div className="flex gap-2">
            <button className="mt-8 daisybtn" onClick={()=>triggerAnimation()} >Register</button>
-       <button className="mt-8 daisybtn-primary" onClick={()=>router.push('/Home')}>Login</button>
+       <button className="mt-8 daisybtn-primary" onClick={()=>triggerAnimationToHome()}>Login</button>
          </div>
   </>
 }
