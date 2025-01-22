@@ -6,9 +6,6 @@ import { useEffect, useState } from "react"
 export default function Teste(){
   const [mounted, setMounted] = useState(false);
   const [data,setData]=useState<[UserTaggle]>()
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
   const fetchData=async ()=>{
       setData(await getAll())
   }

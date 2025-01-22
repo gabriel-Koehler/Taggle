@@ -66,7 +66,7 @@ const Tiptap = () => {
       </div>
     )
   }
-  return <div className='w-full flex-col '>
+  return <div className='w-full flex-col overflow-y-auto'>
   <MenuBar editor={editor} />
   <EditorContent className='size-96 ' editor={editor} />
   </div>

@@ -1,22 +1,20 @@
 export interface UserTaggle{
   id:number;
   username:string;
-  documents:[Folder & Note]
+  documents:[Document]
 }
-export interface Note{
+export interface Document{
   id:number
   type:"note"|"folder"
   title:string
-  content:string
-  parentFolder:Folder
-  owner:UserTaggle
-}
-export interface Folder{
-  id:number
-  type:"note"|"folder"
-  title:string
-  content:[Note & Folder]
   isActive:boolean
-  parentFolder:Folder
-  owner:UserTaggle
+  // owner:UserTaggle
+  // parentFolder:Folder
+}
+
+export interface Note extends Document{
+  content:string
+}
+export interface Folder extends Document{
+  content:[Document]
 }

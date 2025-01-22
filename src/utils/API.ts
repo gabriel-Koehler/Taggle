@@ -11,4 +11,11 @@ export const getAll =async()=>{
     alert(error)
   }
 }
-export const getDocuments
+export const getDocuments=async()=>{
+  try{
+    const response =await api.get("/documents")
+    return response.data
+  }catch(error){
+    alert(error)
+  }
+}

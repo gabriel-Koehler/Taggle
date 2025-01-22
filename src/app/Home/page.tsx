@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react"
 import Cards from "../components/Cards"
+import Tiptap from "../components/TipTap"
 export default function Home(){
   const [testeData]=useState([
     {
@@ -69,7 +70,7 @@ export default function Home(){
     <div className="h-[90%] w-[70%]">
       <div className="h-11"></div>
       <div className="h-full border border-primary100 ">
-        folder
+        <Tiptap></Tiptap>
       </div>
 
     </div>
