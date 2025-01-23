@@ -57,7 +57,7 @@ export default function Home(){
     <div className="h-[90%] relative w-[20%]">
       <div className="h-11"></div>
         <div className="w-full h-8 bg-gradient-to-t top-10 absolute to-base-100 from-transparent "></div>
-      <div className="overflow-y-auto flex flex-col gap-3 h-full scrollbar-thin scrollbar-thumb-lime-300">
+      <div className="py-6 overflow-y-auto flex flex-col gap-3 h-full scrollbar-thin scrollbar-thumb-lime-300">
       {
         testeData.map((item,index)=>(
           <Cards title={item.title} content={item.content} createDate={item.createDate} />
