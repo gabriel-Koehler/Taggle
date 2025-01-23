@@ -8,6 +8,8 @@ export interface Document{
   type:"note"|"folder"
   title:string
   isActive:boolean
+  atCreated:Date
+  atLastAlteration:Date
   // owner:UserTaggle
   // parentFolder:Folder
 }

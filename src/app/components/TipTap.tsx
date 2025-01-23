@@ -25,8 +25,11 @@ import link from '../../../public/icons/link.svg'
 import mediaImage from '../../../public/icons/media-image.svg'
 import twoColumns from '../../../public/icons/table-2-columns.svg'
 import viewTwoColumns from '../../../public/icons/view-columns-2.svg'
-
-const Tiptap = () => {
+interface PropsTipTap{
+  content?: string
+  isLoading?: boolean
+}
+const Tiptap = (props:PropsTipTap) => {
   const editor = useEditor({
     extensions: [StarterKit,
                 Heading.configure({levels:[1,2,3]}),
@@ -97,7 +100,22 @@ const Tiptap = () => {
   }
   return <div className='z-0  box-border relative overflow-hidden overflow-y-auto flex-col '>
   <MenuBar editor={editor} />
-  <EditorContent className='h-full w-full overflow-hidden' editor={editor} />
+  {
+    props.isLoading?
+    <>
+    <div className='flex p-2 flex-col gap-2'>
+      <div className='w-72 h-5 skeleton'></div>
+      <div className='w-72 h-5 skeleton'></div>
+      <div className='w-60 h-5 skeleton'></div>
+      <div className='w-80 h-5 skeleton'></div>
+      <div className='w-64 h-5 skeleton'></div>
+      <div className='w-60 h-5 skeleton'></div>
+      <div className='w-80 h-5 skeleton'></div>
+      <div className='w-72 h-5 skeleton'></div>
+    </div>
+    </>:
+    <EditorContent className='h-full w-full overflow-hidden' editor={editor} />
+  }
   </div>
 }
 
