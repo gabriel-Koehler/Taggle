@@ -1,18 +1,39 @@
 'use client'
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Cards from "../components/Cards"
 import Tiptap from "../components/TipTap"
 
 import { contextValues } from "@/context/ContextValuesProvider"
 import { Document } from "@/types/Types"
+import { getFolders } from "@/utils/API"
+import { useCookies } from "next-client-cookies"
+import { stringify } from "querystring"
 export default function Home(){
   const context=useContext(contextValues)
-
-
-
+  const [folders,setFolders]=useState<Document[]>([])
+  
   const [testeData,setTesteData]=useState<[string,string,string,string,string]>(["test","test","test","test","test"])
   const [data,setData]=useState<[Document]>()
   const [isInRequest,setIsInRequest]=useState(true)
+
+  const cookies = useCookies(); // Mova o useCookies para dentro do componente
+
+  async function callItens() {
+    const token = cookies.get("token"); // Agora está dentro do componente
+    if (!token) {
+      console.error("Token JWT não encontrado nos cookies!");
+      return;
+    }
+
+    const data = await getFolders(token, 1);
+    if (data) {
+      setFolders(data);
+    }
+  }
+
+  useEffect(() => {
+    callItens();
+  }, []);
 
   return<>
   <div className="flex gap-[14px] h-[92vh]">
@@ -23,7 +44,13 @@ export default function Home(){
           isInRequest?
           <div className="skeleton w-40 h-6">
 
-          </div> : <div>folder</div>
+          </div> : 
+          // {
+
+          // }
+          <div>
+            folder
+            </div>
         }
         
       </div>
@@ -35,11 +62,7 @@ export default function Home(){
       <div className="overflow-y-auto py-6 flex flex-col gap-3 h-full scrollbar-thin scrollbar-thumb-lime-300">
       {
         testeData.map((item,index)=>(
-          <Cards click={()=>{
-            context?.setContextTitle(item.title)
-            context?.setContextContent(item.content)
-          }
-          } title={item.title} content={item.content} createDate={item.createDate} />
+          <Cards isLoading/>
         ))
 
       }  

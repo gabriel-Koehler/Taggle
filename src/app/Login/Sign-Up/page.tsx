@@ -16,7 +16,7 @@ export default function SignUp() {
   const [password, setPassword] = useState<string>("")
   const [confirmPassword, setConfirmPassword] = useState<string>("")
   function triggerAnimation(): void {
-    if(password == confirmPassword){
+    if((username!="" && username.length>=6) && password == confirmPassword ){
       const user={
         "username":username,
         "password":password
