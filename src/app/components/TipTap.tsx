@@ -43,18 +43,26 @@ const Tiptap = (props:propsTipTap) => {
       <div className="control-group sticky top-0 p-2 z-10 bg-inherit border rounded-md border-gray-300">
         <div className="flex gap-2">
           <span>{props.title}</span>
+
+
           <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}>
             H1
           </button>
+
           <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}>
             H2
           </button>
+
+
           <button onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}>
             H3
           </button>
+
+
           <button onClick={() => editor.chain().focus().setParagraph().run()} className={editor.isActive('paragraph') ? 'is-active' : ''}>
             Paragraph
           </button>
+          
           <button onClick={() => editor.chain().focus().toggleBold().run()} className={editor.isActive('bold') ? 'is-active' : ''}>
             Bold
           </button>
