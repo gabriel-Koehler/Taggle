@@ -3,6 +3,7 @@ interface propsCards{
   content?:string;
   createDate?:Date
   isLoading?:boolean;
+  click:()=>void;
 }
 
 export default function cards(props:propsCards){

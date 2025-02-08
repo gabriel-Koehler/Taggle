@@ -30,7 +30,6 @@ export default function loginLayout({children}:{children:ReactNode}) {
         <div className="flex-col items-center w-min flex gap-4">
           {/* login input */}
           {children}
-          <h1>teste</h1>
 
         </div>
       </div>

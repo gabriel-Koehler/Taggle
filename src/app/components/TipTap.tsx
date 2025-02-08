@@ -26,11 +26,15 @@ import mediaImage from '../../../public/icons/media-image.svg'
 import twoColumns from '../../../public/icons/table-2-columns.svg'
 import viewTwoColumns from '../../../public/icons/view-columns-2.svg'
 interface PropsTipTap{
+  title?:string
   content?: string
   isLoading?: boolean
 }
 const Tiptap = (props:PropsTipTap) => {
   const editor = useEditor({
+    onUpdate: ({editor}) => {
+      console.log(editor.getJSON())
+    },
     extensions: [StarterKit,
                 Heading.configure({levels:[1,2,3]}),
                 Text,
@@ -43,16 +47,17 @@ const Tiptap = (props:PropsTipTap) => {
                 ColumnExtension
               
               ],
-    content: '<p>Hello World! 🌎️</p>',
+    content: `${props.content}`,
     editorProps:{
-      attributes:{class:'p-2 w-full h-full focus-visible:outline-none'},
+      attributes:{class:'w-full   p-2 h-full focus-visible:outline-none'},
+
     }
 
   })
   const MenuBar = ({editor}:{editor:Editor | null} ) =>{
     if(!editor) return null
     return (
-      <div className="control-group h-12 flex items-center w-full bg-gray200 dark:bg-gray700">
+      <div className="control-group sticky top-0 p-2 z-10 bg-inherit border rounded-md border-gray-300">
         <div className=" flex gap-2 *:p-1 *:cursor-pointer button-group ">
           <Image onClick={()=> editor.chain().focus().setTextAlign('left')} className={(editor.isActive({textAlign:'left'}) ? 'is-active' : '')+'hover:bg-slate-100 rounded-md dark:invert '} src={alignLeft} width={32} height={32} alt='icon for edit bar' />
 
@@ -98,7 +103,9 @@ const Tiptap = (props:PropsTipTap) => {
       </div>
     )
   }
-  return <div className='z-0  box-border relative overflow-hidden overflow-y-auto flex-col '>
+
+  return <div className='overflow-y-scroll scrollbar-thin scrollbar-thumb-lime-300 dark:bg-gray600 bg-gray100 w-full h-full flex-col relative'>
+
   <MenuBar editor={editor} />
   {
     props.isLoading?
@@ -114,7 +121,7 @@ const Tiptap = (props:PropsTipTap) => {
       <div className='w-72 h-5 skeleton'></div>
     </div>
     </>:
-    <EditorContent className='h-full w-full overflow-hidden' editor={editor} />
+    <EditorContent className='h-full w-full' editor={editor} />
   }
   </div>
 }
