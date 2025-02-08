@@ -19,6 +19,7 @@ export default function ConfigPopSide(props:propsConfig) {
   };
   return <>
     <div className=" overflow-x-hidden overflow-hidden z-20 overflow-y-hidden bg-opacity-60 absolute -top-2 -right-2 bg-base-200 h-screen w-screen">
+
       <div
       className={`shadow-xl border border-primary100 absolute right-0 bg-base-200 h-full w-[546px] ${animationClass}`}>
         <div onClick={()=>handleClose()} >X</div>

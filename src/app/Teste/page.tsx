@@ -1,14 +1,11 @@
 'use client'
-import { Folder, Note, UserTaggle } from "@/types/Types";
+import { Document, UserTaggle } from "@/types/Types";
 import { getAll } from "@/utils/API"
 import { useEffect, useState } from "react"
 
 export default function Teste(){
   const [mounted, setMounted] = useState(false);
   const [data,setData]=useState<[UserTaggle]>()
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
   const fetchData=async ()=>{
       setData(await getAll())
   }
@@ -25,7 +22,7 @@ export default function Teste(){
         <span>{item.username}</span>
         {
           item.documents!=null?
-          item.documents.map((doc:Note | Folder)=>{
+          item.documents.map((doc:Document)=>{
             return <div>{doc.id}</div>
           })
           :<></>
