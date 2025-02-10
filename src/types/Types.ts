@@ -5,7 +5,7 @@ export interface UserTaggle{
 }
 export interface Document{
   id:number
-  type:"note"|"folder"
+  type:"Note"|"Folder"
   title:string
   isActive:boolean
   atCreated:Date

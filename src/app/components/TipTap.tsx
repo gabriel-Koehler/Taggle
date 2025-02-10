@@ -1,7 +1,7 @@
 'use client'
 
 import { useEditor, EditorContent, Editor } from '@tiptap/react'
-import TextAlign from '@tiptap/extension-text-style'
+import TextAlign from '@tiptap/extension-text-align'
 import StarterKit from '@tiptap/starter-kit'
 import Heading from '@tiptap/extension-heading'
 import Document from '@tiptap/extension-document'

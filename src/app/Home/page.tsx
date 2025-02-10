@@ -4,13 +4,13 @@ import Cards from "../components/Cards"
 import Tiptap from "../components/TipTap"
 
 import { contextValues } from "@/context/ContextValuesProvider"
-import { Document } from "@/types/Types"
+import { Document, Folder } from "@/types/Types"
 import { getFolders } from "@/utils/API"
 import { useCookies } from "next-client-cookies"
 import { stringify } from "querystring"
 export default function Home(){
   const context=useContext(contextValues)
-  const [folders,setFolders]=useState<Document[]>([])
+  const [folders,setFolders]=useState<Folder[]>([])
   
   const [testeData,setTesteData]=useState<[string,string,string,string,string]>(["test","test","test","test","test"])
   const [data,setData]=useState<[Document]>()
@@ -41,16 +41,25 @@ export default function Home(){
       <div className="h-11"></div>
       <div className="h-full border p-2 border-primary100 ">
         {
-          isInRequest?
-          <div className="skeleton w-40 h-6">
+          !isInRequest?
+          <div className="skeleton w-40 h-6"></div> : 
+          
+            folders?.map((folder:Folder)=>{
+                return(
+                  <div>
+                    <div>{folder.title}</div>
+                    {
+                      folder.content?.map((item)=>{
+                        return item.type=="Folder"?
+                        <div>{item.title}</div>:null
+                      })
+                    }
+                  </div>
+                      )
+              }
+            )
 
-          </div> : 
-          // {
-
-          // }
-          <div>
-            folder
-            </div>
+          
         }
         
       </div>
@@ -61,11 +70,17 @@ export default function Home(){
       <div className="w-[97%] h-8 bg-gradient-to-t top-10 absolute to-base-100 from-transparent "></div>
       <div className="overflow-y-auto py-6 flex flex-col gap-3 h-full scrollbar-thin scrollbar-thumb-lime-300">
       {
-        testeData.map((item,index)=>(
-          <Cards isLoading/>
-        ))
-
-      }  
+        isInRequest?
+        
+          testeData.map((item,index)=>(
+            <Cards isLoading />
+          )):null
+        // : folders.map((item)=>{
+        //   return item instanceof Note? (<>{item.title}</>):null
+        //   })
+        
+      }
+        
       <div className="w-[97%] h-8 bg-gradient-to-b -bottom-11 absolute to-base-100 from-transparent "></div>
     </div>
 
