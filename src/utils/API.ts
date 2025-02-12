@@ -1,7 +1,5 @@
 import axios from "axios";
-import { UserTaggle } from "@/types/Types";
-// import { cookies } from "next/headers";
-import { parseSetCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { setCookie, getCookie } from 'cookies-next';
 const api=axios.create({
   baseURL:"http://localhost:9999/",
 })
@@ -26,6 +24,8 @@ export const getFolders=async(token:string,userId:number)=>{
     return response.data
   }catch(error){
     alert(error)
+  }finally{
+    refreshToken()
   }
 }
 export const register=async(username:string,password:string)=>{
@@ -46,10 +46,39 @@ export const login=async(username:string,password:string)=>{
       {"username": username, "password":password},
       {withCredentials:true})
     console.log(response.data);
-    // (await cookies()).set("jwt",response.data.token,{expires:Date.now()+300})
+    setCookie("token",response.data.token);
     return response.data
     // return response.data.
   }catch(error){
     alert(error)
   }
 }
+const getCurrentToken = () => getCookie("token");
+
+// Função para atualizar o token
+const refreshToken = async () => {
+  const token = getCurrentToken();
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  try {
+    // Envia o token atual para a API de refresh
+    console.log(token);
+    
+    const response = await api.post(
+      "/refresh",
+      token, 
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    // Atualiza o cookie com o novo token
+    setCookie("token", response.data.token);
+    console.log(response.data.token);
+    return response.data.token; // Retorna o novo token
+  } catch (error) {
+    console.error("Error refreshing token", error);
+    throw new Error("Unable to refresh token");
+  }
+};

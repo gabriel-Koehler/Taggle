@@ -24,7 +24,7 @@ export default function SignIn(){
     try {
       login(username, password).then(async(e) => {
         console.log(e.token);
-        document.cookie=`token=${e.token}`
+        // document.cookie=`token=${e.token}`
       });
       
       context?.setCircleScale(60); // Expande o círculo

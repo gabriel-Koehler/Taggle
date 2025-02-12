@@ -7,18 +7,19 @@ import { contextValues } from "@/context/ContextValuesProvider"
 import { Document, Folder } from "@/types/Types"
 import { getFolders } from "@/utils/API"
 import { useCookies } from "next-client-cookies"
-import { stringify } from "querystring"
+
 export default function Home(){
   const context=useContext(contextValues)
   const [folders,setFolders]=useState<Folder[]>([])
   
   const [testeData,setTesteData]=useState<[string,string,string,string,string]>(["test","test","test","test","test"])
   const [data,setData]=useState<[Document]>()
-  const [isInRequest,setIsInRequest]=useState(true)
+  const [isInRequest,setIsInRequest]=useState(false)
 
   const cookies = useCookies(); // Mova o useCookies para dentro do componente
 
   async function callItens() {
+    setIsInRequest(true);
     const token = cookies.get("token"); // Agora está dentro do componente
     if (!token) {
       console.error("Token JWT não encontrado nos cookies!");
@@ -29,8 +30,11 @@ export default function Home(){
     if (data) {
       setFolders(data);
     }
+    setIsInRequest(false);
   }
-
+  // function setCurrentFolder(id){
+  //   // folders.filter(()
+  // }
   useEffect(() => {
     callItens();
   }, []);
@@ -39,9 +43,9 @@ export default function Home(){
   <div className="flex gap-[14px] h-[92vh]">
     <div className="h-[90%] w-[10%]">
       <div className="h-11"></div>
-      <div className="h-full border p-2 border-primary100 ">
+      <div className="h-full border text-sm p-2 border-primary100 ">
         {
-          !isInRequest?
+          isInRequest?
           <div className="skeleton w-40 h-6"></div> : 
           
             folders?.map((folder:Folder)=>{
