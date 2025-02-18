@@ -19,14 +19,8 @@ export default function Home(){
   const cookies = useCookies(); // Mova o useCookies para dentro do componente
 
   async function callItens() {
-    setIsInRequest(true);
-    const token = cookies.get("token"); // Agora está dentro do componente
-    if (!token) {
-      console.error("Token JWT não encontrado nos cookies!");
-      return;
-    }
 
-    const data = await getFolders(token, 1);
+    const data = await getFolders(1);
     if (data) {
       setFolders(data);
     }
@@ -43,26 +37,25 @@ export default function Home(){
   <div className="flex gap-[14px] h-[92vh]">
     <div className="h-[90%] w-[10%]">
       <div className="h-11"></div>
-      <div className="h-full border text-sm p-2 border-primary100 ">
+      <div className="h-full border rounded-md text-sm p-2 border-primary100 ">
         {
           isInRequest?
           <div className="skeleton w-40 h-6"></div> : 
           
             folders?.map((folder:Folder)=>{
                 return(
-                  <div>
-                    <div>{folder.title}</div>
-                    {
-                      folder.content?.map((item)=>{
-                        return item.type=="Folder"?
-                        <div>{item.title}</div>:null
-                      })
-                    }
-                  </div>
+                      <div>
+                        <div>{folder.title}</div>
+                        {
+                          folder.content?.map((item)=>{
+                            return item.type=="Folder"?
+                            <div>{item.title}</div>:null
+                          })
+                        }
+                      </div>
                       )
               }
             )
-
           
         }
         
@@ -92,8 +85,13 @@ export default function Home(){
     <div className="h-[90%] w-[70%]">
       <div className="h-11"></div>
 
-      <div className="h-full border border-primary100 ">
-        <Tiptap isLoading={true}></Tiptap>
+      <div className="h-full border rounded-md border-primary100 ">
+        {
+          isInRequest?
+          <Tiptap isLoading={true}></Tiptap>
+          :
+          <Tiptap ></Tiptap>
+        }
       </div>
 
     </div>

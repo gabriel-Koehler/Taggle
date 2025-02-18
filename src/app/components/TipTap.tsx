@@ -49,7 +49,7 @@ const Tiptap = (props:PropsTipTap) => {
               ],
     content: `${props.content}`,
     editorProps:{
-      attributes:{class:'w-full   p-2 h-full focus-visible:outline-none'},
+      attributes:{class:'w-full p-2 h-full focus-visible:outline-none'},
 
     }
 
@@ -57,8 +57,8 @@ const Tiptap = (props:PropsTipTap) => {
   const MenuBar = ({editor}:{editor:Editor | null} ) =>{
     if(!editor) return null
     return (
-      <div className="control-group sticky top-0 p-2 z-10 bg-inherit border rounded-md border-gray-300">
-        <div className=" flex gap-2 *:p-1 *:cursor-pointer button-group ">
+      <div className="control-group w-full  sticky top-0 p-2 z-10 bg-inherit border rounded-md border-gray-300">
+        <div className=" flex gap-2 *:p-1 *:cursor-pointer flex-wrap button-group w-full ">
           <Image onClick={()=> editor.chain().focus().setTextAlign('left')} className={(editor.isActive({textAlign:'left'}) ? 'is-active' : '')+'hover:bg-slate-100 rounded-md dark:invert '} src={alignLeft} width={32} height={32} alt='icon for edit bar' />
 
           <Image onClick={()=> editor.chain().focus().setTextAlign('center')} className={(editor.isActive({textAlign:'center'}) ? 'is-active' : '')+'hover:bg-slate-100 rounded-md dark:invert'} src={alignCenter} width={32} height={32} alt='icon for edit bar' />

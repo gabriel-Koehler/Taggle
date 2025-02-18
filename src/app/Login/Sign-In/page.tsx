@@ -2,7 +2,7 @@
 import Input from "@/app/components/Input";
 import ContextValuesProvider, { contextValues } from "@/context/ContextValuesProvider";
 import { login } from "@/utils/API";
-
+import {motion} from "motion/react"
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
@@ -23,7 +23,7 @@ export default function SignIn(){
   async function  triggerAnimationToHome() {
     try {
       login(username, password).then(async(e) => {
-        console.log(e.token);
+        // console.log(e.token);
         // document.cookie=`token=${e.token}`
       });
       
@@ -35,15 +35,10 @@ export default function SignIn(){
     } catch (error) {
       
     }
-    
-    
-    
-    
-    
-
 }
   return <>
     <h1 className="text-4xl mb-8">Login</h1>
+
         <div className="w-80">
          <Input name="Username" textError="um" InputChange={(value) => setUsername(value)}></Input>
          </div>

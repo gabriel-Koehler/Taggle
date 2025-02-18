@@ -11,9 +11,9 @@ export const getAll =async()=>{
     alert(error)
   }
 }
-export const getFolders=async(token:string,userId:number)=>{
+export const getFolders=async(userId:number)=>{
   try{
-    
+    const token = await getCookie("token")
     const response =await api.get(`/documents/get/${userId}`,
       {
         headers: { Authorization: `Bearer ${token}` }
@@ -47,7 +47,7 @@ export const login=async(username:string,password:string)=>{
       {withCredentials:true})
     console.log(response.data);
     setCookie("token",response.data.token);
-    return response.data
+    // return response.data
     // return response.data.
   }catch(error){
     alert(error)
@@ -76,7 +76,7 @@ const refreshToken = async () => {
     // Atualiza o cookie com o novo token
     setCookie("token", response.data.token);
     console.log(response.data.token);
-    return response.data.token; // Retorna o novo token
+    // return response.data.token; // Retorna o novo token
   } catch (error) {
     console.error("Error refreshing token", error);
     throw new Error("Unable to refresh token");
