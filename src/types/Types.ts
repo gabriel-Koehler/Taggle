@@ -1,7 +1,7 @@
-export interface UserTaggle{
-  id:number;
-  username:string;
-  documents:[Document]
+export class UserTaggle{
+  id!:number;
+  username!:string;
+  documents!:[Document]
 }
 export class Document{
   id!:number ;
@@ -16,5 +16,5 @@ export class Note extends Document{
   content!:string
 }
 export class Folder extends Document{
-  content!:[Document]
+  content!:[item:Folder | Note]
 }

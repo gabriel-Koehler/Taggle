@@ -1,22 +1,23 @@
 'use client'
+import { Folder, Note } from "@/types/Types";
 import { createContext, useState } from "react";
 
 interface ContextValues{
-  contextNoteId:string
-  setContextNoteId:(noteId:any) => void
+  contextNote:Note | null
+  setContextNote:(note:Note | null) => void
   circleScale:number
   setCircleScale: (scale:number) => void
-  contextFolderId:number
-  setContextFolderId: (folderId:number) => void
+  contextFolder?:Folder | null
+  setContextFolder: (folder:Folder | null) => void
 }
 export const contextValues=createContext<ContextValues | null>(null);
 export default function ContextValuesProvider({children}:{children: React.ReactNode}){
   const [circleScale,setCircleScale] = useState(1);
-  const [contextFolderId,setContextFolderId] = useState(0);
-  const [contextNoteId,setContextNoteId] = useState(' ');
+  const [contextFolder,setContextFolder] = useState<null | Folder>(null);
+  const [contextNote,setContextNote] = useState<null | Note>(null);
 
   return<>
-  <contextValues.Provider value={{circleScale,setCircleScale,contextFolderId,setContextFolderId,contextNoteId,setContextNoteId}}>
+  <contextValues.Provider value={{circleScale,setCircleScale,contextFolder,setContextFolder,contextNote,setContextNote}}>
     {children}
   </contextValues.Provider>
   </>

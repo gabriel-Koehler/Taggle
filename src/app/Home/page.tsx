@@ -4,7 +4,7 @@ import Cards from "../components/Cards"
 import Tiptap from "../components/TipTap"
 
 import { contextValues } from "@/context/ContextValuesProvider"
-import { Document, Folder } from "@/types/Types"
+import { Document, Folder, Note } from "@/types/Types"
 import { getFolders } from "@/utils/API"
 import { useCookies } from "next-client-cookies"
 
@@ -18,12 +18,13 @@ export default function Home(){
 
   async function callItens() {
 
-    const data = await getFolders(1);
+    const data:Folder[] = await getFolders(1);
     if (data) {
       setFolders(data);
     }
-    folders[0]
     setIsInRequest(false);
+    context?.setContextFolder(data[0]);
+    context?.setContextNote(data[0].content.filter((d) => d.type=="Note")[0])
   }
   // function setCurrentFolder(id){
   //   // folders.filter(()
@@ -70,7 +71,12 @@ export default function Home(){
         
           testeData.map((item,index)=>(
             <Cards isLoading />
-          )):null
+          )):
+          context?.contextFolder?.content
+          .filter((e)=>e.type=="Note")
+          .map((item:Note | Folder)=>(
+            <Cards title={item.title} content={item.content} />
+          ))
         // : folders.map((item)=>{
         //   return item instanceof Note? (<>{item.title}</>):null
         //   })
@@ -89,7 +95,7 @@ export default function Home(){
           isInRequest?
           <Tiptap isLoading={true}></Tiptap>
           :
-          <Tiptap ></Tiptap>
+          <Tiptap  ></Tiptap>
         }
       </div>
 

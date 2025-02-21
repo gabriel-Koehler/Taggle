@@ -25,12 +25,15 @@ import link from '../../../public/icons/link.svg'
 import mediaImage from '../../../public/icons/media-image.svg'
 import twoColumns from '../../../public/icons/table-2-columns.svg'
 import viewTwoColumns from '../../../public/icons/view-columns-2.svg'
+import { useContext, useEffect } from 'react'
+import { contextValues } from '@/context/ContextValuesProvider'
 interface PropsTipTap{
   title?:string
   content?: string
   isLoading?: boolean
 }
 const Tiptap = (props:PropsTipTap) => {
+  const context= useContext(contextValues)
   const editor = useEditor({
     onUpdate: ({editor}) => {
       console.log(editor.getJSON())
@@ -47,10 +50,9 @@ const Tiptap = (props:PropsTipTap) => {
                 ColumnExtension
               
               ],
-    content: `${props.content}`,
+    // content: context?.contextNote?.content,
     editorProps:{
       attributes:{class:'w-full p-2 h-full focus-visible:outline-none'},
-
     }
 
   })
@@ -103,7 +105,9 @@ const Tiptap = (props:PropsTipTap) => {
       </div>
     )
   }
-
+  useEffect(()=>{
+    editor?.commands.setContent(`<p>${context?.contextNote?.content}</p>`)
+  },[])
   return <div className='overflow-y-scroll scrollbar-thin scrollbar-thumb-lime-300 dark:bg-gray600 bg-gray100 w-full h-full flex-col relative'>
 
   <MenuBar editor={editor} />
@@ -121,7 +125,7 @@ const Tiptap = (props:PropsTipTap) => {
       <div className='w-72 h-5 skeleton'></div>
     </div>
     </>:
-    <EditorContent className='h-full w-full' editor={editor} />
+  <EditorContent className='h-full w-full'  editor={editor} />
   }
   </div>
 }
