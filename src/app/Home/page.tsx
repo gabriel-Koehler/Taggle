@@ -16,14 +16,13 @@ export default function Home(){
   const [data,setData]=useState<[Document]>()
   const [isInRequest,setIsInRequest]=useState(false)
 
-  const cookies = useCookies(); // Mova o useCookies para dentro do componente
-
   async function callItens() {
 
     const data = await getFolders(1);
     if (data) {
       setFolders(data);
     }
+    folders[0]
     setIsInRequest(false);
   }
   // function setCurrentFolder(id){

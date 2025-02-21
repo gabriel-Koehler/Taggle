@@ -57,7 +57,7 @@ const Tiptap = (props:PropsTipTap) => {
   const MenuBar = ({editor}:{editor:Editor | null} ) =>{
     if(!editor) return null
     return (
-      <div className="control-group w-full  sticky top-0 p-2 z-10 bg-inherit border rounded-md border-gray-300">
+      <div className="control-group w-full  sticky top-0 p-2 z-10 bg-inherit border-b rounded-md border-gray-300">
         <div className=" flex gap-2 *:p-1 *:cursor-pointer flex-wrap button-group w-full ">
           <Image onClick={()=> editor.chain().focus().setTextAlign('left')} className={(editor.isActive({textAlign:'left'}) ? 'is-active' : '')+'hover:bg-slate-100 rounded-md dark:invert '} src={alignLeft} width={32} height={32} alt='icon for edit bar' />
 
