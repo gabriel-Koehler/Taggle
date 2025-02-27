@@ -25,18 +25,25 @@ import link from '../../../public/icons/link.svg'
 import mediaImage from '../../../public/icons/media-image.svg'
 import twoColumns from '../../../public/icons/table-2-columns.svg'
 import viewTwoColumns from '../../../public/icons/view-columns-2.svg'
-import { useContext, useEffect } from 'react'
-import { contextValues } from '@/context/ContextValuesProvider'
+import { Context, ReactNode, useContext, useEffect, useState } from 'react'
+import { useContextValues } from '@/context/ContextValuesProvider'
 interface PropsTipTap{
   title?:string
   content?: string
   isLoading?: boolean
 }
 const Tiptap = (props:PropsTipTap) => {
-  const context= useContext(contextValues)
+  // const {contextNote:Note}= useContext(contextValues)
+  const context =useContextValues()
+
   const editor = useEditor({
     onUpdate: ({editor}) => {
       console.log(editor.getJSON())
+    },
+    onCreate({ editor }) {
+      
+      
+      editor?.commands.setContent(`<p>${props.content}</p>`)
     },
     extensions: [StarterKit,
                 Heading.configure({levels:[1,2,3]}),
@@ -54,8 +61,16 @@ const Tiptap = (props:PropsTipTap) => {
     editorProps:{
       attributes:{class:'w-full p-2 h-full focus-visible:outline-none'},
     }
-
+    
   })
+
+  useEffect(()=>{
+    if(context) console.log(context)
+    if(!context) console.log("errouuuuu")
+      
+  },[editor])
+
+
   const MenuBar = ({editor}:{editor:Editor | null} ) =>{
     if(!editor) return null
     return (
@@ -105,9 +120,9 @@ const Tiptap = (props:PropsTipTap) => {
       </div>
     )
   }
-  useEffect(()=>{
-    editor?.commands.setContent(`<p>${context?.contextNote?.content}</p>`)
-  },[])
+  // useEffect(()=>{
+    
+  // },[])
   return <div className='overflow-y-scroll scrollbar-thin scrollbar-thumb-lime-300 dark:bg-gray600 bg-gray100 w-full h-full flex-col relative'>
 
   <MenuBar editor={editor} />

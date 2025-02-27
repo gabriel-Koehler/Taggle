@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AppProvider from "../providers/AppProvider";
-import Header from "./components/Header";
+import Header from "./_components/Header";
 import { Darker_Grotesque, Work_Sans } from "next/font/google";
 
 
@@ -27,20 +27,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
+
 
   return (
-    
+
     <html lang="en">
       <body
         className={`${darkerGrotesque.variable} ${workSans.variable} antialiased`}
-        >
+      >
         <AppProvider>
-     
-            <Header />
-        
+
+          <Header />
+
           {/* <main> */}
-            {children}
+          {children}
           {/* </main> */}
         </AppProvider>
       </body>

@@ -1,8 +1,9 @@
 'use client'
-import { AlertNotification } from "@/app/components/AlertNotification";
-import Input from "@/app/components/Input";
+import { AlertNotification } from "@/app/_components/AlertNotification";
+import Input from "@/app/_components/Input";
 import { contextValues } from "@/context/ContextValuesProvider";
 import { register } from "@/utils/API";
+import { AnimatePresence } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
@@ -16,34 +17,38 @@ export default function SignUp() {
   const [password, setPassword] = useState<string>("")
   const [confirmPassword, setConfirmPassword] = useState<string>("")
   function triggerAnimation(): void {
-    if((username!="" && username.length>=6) && password == confirmPassword ){
-      const user={
-        "username":username,
-        "password":password
+    if ((username != "" && username.length >= 6) && password == confirmPassword) {
+      const user = {
+        "username": username,
+        "password": password
       };
       console.log(user.username, user.password);
-      console.log(register(username,password));
+      console.log(register(username, password));
       context?.setCircleScale(60); // Expande o círculo
 
       setTimeout(() => {
         router.push('/Login/Sign-In')
         context?.setCircleScale(1); // Reduz o círculo de volta ao original
       }, 900); // Duração de expansão antes de voltar
-    }else{
+    } else {
       setError(true);
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false);
-      }, 3000);
+      }, 4000);
     }
 
   }
   return <>
     <h1 className="text-4xl mb-8">Register</h1>
-    {
-      isShowAlert?
-      <AlertNotification haveButton={false} info="Erro que ferra tudo desliga e quebra o pc" title="Error 500" status="error" />:null
-    }
+    <AlertNotification
+      isShow={isShowAlert}
+      haveButton={false}
+      info="Erro que ferra tudo desliga e quebra o pc"
+      title="Error 500"
+      status="error" />
+
+
     <div className="w-80">
       <Input name="Username" textError="um" InputChange={(value) => setUsername(value)}></Input>
     </div>
