@@ -24,11 +24,12 @@ export default function SignUp() {
       };
       console.log(user.username, user.password);
       console.log(register(username, password));
-      context?.setCircleScale(60); // Expande o círculo
+      if(context?.setCircleScale) context?.setCircleScale(60); // Expande o círculo
+      
 
       setTimeout(() => {
         router.push('/Login/Sign-In')
-        context?.setCircleScale(1); // Reduz o círculo de volta ao original
+        if(context?.setCircleScale) context?.setCircleScale(1); // Reduz o círculo de volta ao original
       }, 900); // Duração de expansão antes de voltar
     } else {
       setError(true);

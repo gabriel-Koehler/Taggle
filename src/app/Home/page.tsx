@@ -3,13 +3,13 @@ import { useContext, useEffect, useState } from "react"
 import Cards from "../_components/Cards"
 import Tiptap from "../_components/TipTap"
 
-import { contextValues } from "@/context/ContextValuesProvider"
+import { contextValues, useContextValues } from "@/context/ContextValuesProvider"
 import { Document, Folder, Note } from "@/types/Types"
 import { getFolders } from "@/utils/API"
-import { useCookies } from "next-client-cookies"
+import { getCookies,setCookie } from "cookies-next"
 
 export default function Home() {
-  const context = useContext(contextValues)
+  const {contextFolder,setContextFolder,setContextNote,contextNote} = useContextValues()
   const [folders, setFolders] = useState<Folder[]>([])
 
   const [testeData, setTesteData] = useState<[string, string, string, string, string]>(["test", "test", "test", "test", "test"])
@@ -21,8 +21,10 @@ export default function Home() {
     const data: Folder[] = await getFolders(1);
     if (data) {
       setFolders(data);
-      context?.setContextFolder(data[0]);
-      context?.setContextNote((data[0].content.filter((d) => d.type == "Note") as Note[])[0])
+      
+      if(setContextFolder)setContextFolder(data[0]);
+      if(setContextNote)setContextNote((data[0].content.filter((d) => d.type == "Note") as Note[])[0])
+      setCookie("currentNote",(data[0].content.filter((d) => d.type == "Note") as Note[])[0])
       console.log((data[0].content.filter((d) => d.type == "Note") as Note[])[0]);
     }
     setIsInRequest(false);
@@ -34,13 +36,6 @@ export default function Home() {
   useEffect(() => {
     callItens();
   }, []);
-  useEffect(() => {
-
-  }, []);
-  useEffect(() => {
-    callItens();
-  }, []);
-  
   return <>
     <div className="flex gap-[14px] h-[92vh]">
       <div className="h-[90%] w-[10%]">
@@ -52,7 +47,7 @@ export default function Home() {
 
               folders?.map((folder: Folder) => {
                 return (
-                  <div>
+                  <div key={folder.id}>
                     <div>{folder.title}</div>
                     {
                       folder.content?.map((item) => {
@@ -80,10 +75,10 @@ export default function Home() {
               testeData.map((item, index) => (
                 <Cards isLoading />
               )) :
-              context?.contextFolder?.content
+              contextFolder?.content
                 .filter((e) => e.type == "Note")
                 .map((item: Note | Folder) => (
-                  <Cards title={item.title} content={(item as Note).content} />
+                  <Cards key={item.id} title={item.title} content={(item as Note).content} />
                 ))
             // : folders.map((item)=>{
             //   return item instanceof Note? (<>{item.title}</>):null
@@ -96,14 +91,14 @@ export default function Home() {
 
       </div>
       <div className="h-[90%] w-[70%]">
-        <div className="h-11"></div>
-
+        <div className="h-11 flex items-center"><span>{contextNote?.content}</span></div>
+          
         <div className="h-full border rounded-md border-primary100 ">
           {
             isInRequest ?
               <Tiptap isLoading={true}></Tiptap>
               :
-              <Tiptap content={context?.contextNote?.content}></Tiptap>
+              <Tiptap content={contextNote?.content}></Tiptap>
           }
         </div>
 

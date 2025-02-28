@@ -22,7 +22,8 @@ export const config = {
   matcher: ['/',
             '/Login/Sign-In',
             '/Login/Sign-Up',
-            '/Home'
+            '/Home',
+            '/Teste'
   ]
 }
 // import { NextResponse, type NextRequest } from "next/server";

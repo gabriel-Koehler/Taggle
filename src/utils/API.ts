@@ -19,7 +19,7 @@ export const getFolders=async(userId:number)=>{
         headers: { Authorization: `Bearer ${token}` }
       }
     )
-    console.log(response.data);
+    // console.log(response.data);
     
     return response.data
   }catch(error){
@@ -35,7 +35,7 @@ export const register=async(username:string,password:string)=>{
     const response =await api.post("/signin",
       {"username": username, "password":password},
       {withCredentials:true})
-    console.log(response);
+    // console.log(response);
     return response.data
   }catch(error){
     alert(error)
@@ -47,7 +47,7 @@ export const login=async(username:string,password:string)=>{
     const response =await api.post("/login",
       {"username": username, "password":password},
       {withCredentials:true})
-    console.log(response.data);
+    // console.log(response.data);
     setCookie("token",response.data.token,{maxAge:300});
     // return response.data
     // return response.data.
@@ -67,7 +67,7 @@ const refreshToken = async () => {
 
   try {
     // Envia o token atual para a API de refresh
-    console.log(token);
+    // console.log(token);
     
     const response = await api.post(
       "/refresh",
@@ -77,7 +77,7 @@ const refreshToken = async () => {
 
     // Atualiza o cookie com o novo token
     setCookie("token", response.data.token,{maxAge:300});
-    console.log(response.data.token);
+    // console.log(response.data.token);
     // return response.data.token; // Retorna o novo token
   } catch (error) {
     console.error("Error refreshing token", error);

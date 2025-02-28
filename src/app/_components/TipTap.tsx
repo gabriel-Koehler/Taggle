@@ -26,25 +26,27 @@ import mediaImage from '../../../public/icons/media-image.svg'
 import twoColumns from '../../../public/icons/table-2-columns.svg'
 import viewTwoColumns from '../../../public/icons/view-columns-2.svg'
 import { Context, ReactNode, useContext, useEffect, useState } from 'react'
-import { useContextValues } from '@/context/ContextValuesProvider'
+import { contextValues, useContextValues } from '@/context/ContextValuesProvider'
+import { getCookie, getCookies } from 'cookies-next'
+import { Note } from '@/types/Types'
+
 interface PropsTipTap{
   title?:string
   content?: string
   isLoading?: boolean
 }
 const Tiptap = (props:PropsTipTap) => {
+  const [valueContent,setValueContent]=useState<string | (()=> string) |  undefined>(props.content)
+  const [note,setNote]=useState<Note>()
   // const {contextNote:Note}= useContext(contextValues)
-  const context =useContextValues()
-
+  const {contextNote} =useContextValues()
   const editor = useEditor({
     onUpdate: ({editor}) => {
       console.log(editor.getJSON())
     },
-    onCreate({ editor }) {
-      
-      
-      editor?.commands.setContent(`<p>${props.content}</p>`)
-    },
+    // onCreate({ editor }) {
+    //   editor?.commands.setContent(contentValue)
+    // },
     extensions: [StarterKit,
                 Heading.configure({levels:[1,2,3]}),
                 Text,
@@ -57,6 +59,7 @@ const Tiptap = (props:PropsTipTap) => {
                 ColumnExtension
               
               ],
+    immediatelyRender:true,
     // content: context?.contextNote?.content,
     editorProps:{
       attributes:{class:'w-full p-2 h-full focus-visible:outline-none'},
@@ -65,10 +68,9 @@ const Tiptap = (props:PropsTipTap) => {
   })
 
   useEffect(()=>{
-    if(context) console.log(context)
-    if(!context) console.log("errouuuuu")
-      
-  },[editor])
+   
+      editor.commands.setContent(valueContent || "muito undefined desgraça")
+  },[])
 
 
   const MenuBar = ({editor}:{editor:Editor | null} ) =>{

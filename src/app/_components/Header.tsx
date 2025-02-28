@@ -9,6 +9,7 @@ import Input from "./Input";
 import logo from "../../../public/taggalgeLogo.svg"
 import Image from "next/image";
 import ConfigPopSide from "./ConfigPopSide";
+import { useContextValues } from "@/context/ContextValuesProvider";
 
 export default function Header(){
   const router = usePathname();
@@ -16,7 +17,7 @@ export default function Header(){
   const [isConfig, setIsConfig] = useState(false);
   const {theme,setTheme }=useTheme()
   const [serchValue,setSearchValue]= useState<string>('')
-
+  const {contextNote}=useContextValues()
   useEffect(() => {
     setMounted(true);
   }, []);
