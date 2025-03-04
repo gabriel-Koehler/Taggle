@@ -58,9 +58,10 @@ const Tiptap = (props: PropsTipTap) => {
       attributes: { class: 'w-full p-2 h-full focus-visible:outline-none' },
     }
 
-  })
+  },[])
 
   const MenuBar = ({ editor }: { editor: Editor | null }) => {
+    useEffect(()=>{},[])
     if (!editor) return null
     return (
       <div className="control-group w-full  sticky top-0 p-2 z-10 bg-inherit border-b rounded-md border-gray-300">
@@ -114,7 +115,7 @@ const Tiptap = (props: PropsTipTap) => {
     editor?.commands.setContent(props.content!)
   },[props.content])
   return (
-    <ContextValuesProvider>
+
       <div className='overflow-y-scroll scrollbar-thin scrollbar-thumb-lime-300 dark:bg-gray600 bg-gray100 w-full h-full flex-col relative'>
 
         <MenuBar editor={editor} />
@@ -135,7 +136,6 @@ const Tiptap = (props: PropsTipTap) => {
             <EditorContent className='h-full w-full' editor={editor} />
         }
       </div>
-    </ContextValuesProvider>
   )
 }
 

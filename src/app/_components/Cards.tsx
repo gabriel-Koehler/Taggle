@@ -1,14 +1,14 @@
+import { Note } from "@/types/Types";
+
 interface propsCards{
-  title?:string;
-  content?:string;
-  createDate?:Date
+  note?:Note
   isLoading?:boolean;
-  click?:()=>void;
+  click?:any;
 }
 
 export default function cards(props:propsCards){
   return<>
-    <div className="px-3 py-2 w-full h-36 border flex flex-col gap-2 border-primary100 rounded-md">
+    <div onClick={()=> props.click!(props.note!)} className="px-3 py-2 w-full h-36 border flex flex-col gap-2 border-primary100 rounded-md cursor-pointer hover:shadow-md z-20 absolute">
       {
         props.isLoading? 
           <>
@@ -22,15 +22,13 @@ export default function cards(props:propsCards){
             </div>
           </>:
           <>
-            <div>{props.title}</div>
-            <div>{props.content}</div>
+            <div>{props.note!.title}</div>
+            <div>{props.note!.content}</div>
             <div className="flex justify-end">
-            <div>{props.createDate?.toDateString()}</div>
+            <div>{props.note!.atCreated?.toDateString()}</div>
             </div>
           </>
-
       }
-
     </div>
   </>
 }

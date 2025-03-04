@@ -1,22 +1,22 @@
 'use client'
 import Input from "@/app/_components/Input";
-import ContextValuesProvider, { contextValues } from "@/context/ContextValuesProvider";
+import ContextValuesProvider, { contextValues, useContextValues } from "@/context/ContextValuesProvider";
 import { login } from "@/utils/API";
 import { motion } from "motion/react"
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
 export default function SignIn() {
-  const context = useContext(contextValues)
+  const {circleScale,setCircleScale} = useContextValues()
   const router = useRouter()
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   function triggerAnimation(): void {
-    context?.setCircleScale(60); // Expande o círculo
+    setCircleScale!(60); // Expande o círculo
 
     setTimeout(() => {
       router.push('/Login/Sign-Up')
-      context?.setCircleScale(1); // Reduz o círculo de volta ao original
+      setCircleScale!(1); // Reduz o círculo de volta ao original
     }, 900); // Duração de expansão antes de voltar
 
   }
@@ -27,10 +27,10 @@ export default function SignIn() {
         // document.cookie=`token=${e.token}`
       });
 
-      context?.setCircleScale(60); // Expande o círculo
+      setCircleScale!(60); // Expande o círculo
       setTimeout(() => {
         router.push('/Home')
-        context?.setCircleScale(1); // Reduz o círculo de volta ao original
+        setCircleScale!(1); // Reduz o círculo de volta ao original
       }, 900); // Duração de expansão antes de voltar
     } catch (error) {
 
