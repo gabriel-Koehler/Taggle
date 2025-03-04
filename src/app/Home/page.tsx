@@ -91,7 +91,7 @@ export default function Home() {
 
       </div>
       <div className="h-[90%] w-[70%]">
-        <div className="h-11 flex items-center"><span>{contextNote?.content}</span></div>
+        <div className="h-11 flex items-center"></div>
           
         <div className="h-full border rounded-md border-primary100 ">
           {
