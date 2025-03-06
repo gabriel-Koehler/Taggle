@@ -12,8 +12,9 @@ export function renderFolders(folders: Folder[]) {
   )
   function createfolders(level:number){
     try{
-      // createDocument()
+      console.log(createDocument(title,"Folder",level));
     }catch(e){
+      console.log(e);
     }
     console.log(level);   
   }
@@ -21,10 +22,11 @@ export function renderFolders(folders: Folder[]) {
     return (
       <div className="bg-transparent pl-1">
         {
-          folders?.filter((document) => document.type == "Folder").map((folder: Folder, index: number) => {
+          folders?.filter((document) => document.type == "Folder")
+          .map((folder: Folder, index: number) => {
             return (
-              <div key={folder.id} onClick={() => setContextFolder!(folder)}>
-                <div>{folder.title}</div>
+              <div key={folder.id}>
+                <div onClick={() => setContextFolder!(folder!)} className="cursor-pointer before:content-['>'] flex">{folder.title}</div>
                 {
                   render(folder.content as Folder[])
                 }

@@ -44,12 +44,23 @@ export const register=async(username:string,password:string)=>{
 export const createDocument=async(title:string,type:string,parentFolderId:number)=>{
   try{
     const token = await getCookie("token")
-    const response =await api.post("/document/folder",
-      {withCredentials:true},
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    )
+    let response;
+    if(type=="Folder"){
+      response=api.post("/documents/create/folder/"+parentFolderId,{"title":title},
+        {
+          withCredentials:true,
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      )
+    }
+    else{
+      response=api.post("/documents/create/note/"+parentFolderId,{"title":title},
+        {
+          withCredentials:true,
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      )
+    }
     
   }catch(error){
 

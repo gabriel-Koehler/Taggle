@@ -1,4 +1,5 @@
 import { Note } from "@/types/Types";
+import { createDocument } from "@/utils/API";
 import { useState } from "react";
 
 interface propsCards{
@@ -11,8 +12,12 @@ interface propsCards{
 
 export default function cards(props:propsCards){
   const [title,setTitle] = useState<string>("")
-  function createNote(parentFolder: number): void {
-    
+  function createNote(level: number): void {
+    try {
+      console.log(createDocument(title,"Note",level));
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return<>
