@@ -16,5 +16,6 @@ export class Note extends Document{
   content!:string
 }
 export class Folder extends Document{
+  parentFolder!:number;
   content!:[item:Folder | Note]
 }

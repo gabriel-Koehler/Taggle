@@ -41,7 +41,20 @@ export const register=async(username:string,password:string)=>{
     alert(error)
   }
 }
+export const createDocument=async(title:string,type:string,parentFolderId:number)=>{
+  try{
+    const token = await getCookie("token")
+    const response =await api.post("/document/folder",
+      {withCredentials:true},
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+    
+  }catch(error){
 
+  }
+}
 export const login=async(username:string,password:string)=>{
   try{
     const response =await api.post("/login",

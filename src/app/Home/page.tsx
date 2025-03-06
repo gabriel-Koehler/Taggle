@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react"
-import Cards from "../_components/Cards"
+import Cards from "../_components/CardsNote"
 import Tiptap from "../_components/TipTap"
 
 import { useContextValues } from "@/context/ContextValuesProvider"
@@ -43,14 +43,14 @@ export default function Home() {
           {
             isInRequest ?
               <div className="skeleton w-40 h-6"></div> :
-                renderFolders(folders)
+              renderFolders(folders)
           }
 
         </div>
 
       </div>
       <div className="h-[90%] bg-transparent z-0 relative w-[20%]">
-        
+
         <div className="h-11">
         </div>
 
@@ -71,7 +71,7 @@ export default function Home() {
         </div>
 
       </div>
-  
+
       <div className="h-[90%] w-[70%]">
         <div className="h-11 flex items-center">
         </div>

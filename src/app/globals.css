@@ -16,17 +16,18 @@
 
 
 
-@media (prefers-color-scheme: dark) { 
-    :root {
+/* @media (prefers-color-scheme: dark) {  */
+[data-theme="dark"] { 
+    /* :root { */
       --background: #000;
       --foreground: #fff;
       --font-title: var(--font-darker-grotesque);
       --font-body: var(--font-work-sans);
       --shadowColor08:rgba(158, 162, 174, 0.08);
-    --shadowColor1:rgba(158, 162, 174, 0.1);
-    --shadowColor12:rgba(158, 162, 174, 0.12);
-    --shadowColor14:rgba(158, 162, 174, 0.14);
-    }
+      --shadowColor1:rgba(158, 162, 174, 0.1);
+      --shadowColor12:rgba(158, 162, 174, 0.12);
+      --shadowColor14:rgba(158, 162, 174, 0.14);
+    /* } */
   
  }
 
