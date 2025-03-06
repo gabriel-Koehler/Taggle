@@ -1,7 +1,10 @@
 import { Folder, Note } from "@/types/Types";
 import Cards from "./CardsNote";
+import { useContextValues } from "@/context/ContextValuesProvider";
+
 
 export function renderNotes(contextFolder: Folder) {
+  const {setContextNote}=useContextValues
   return (
     <>
       {
@@ -9,7 +12,7 @@ export function renderNotes(contextFolder: Folder) {
           .filter((e) => e.type == "Note")
           .map((item: Note | Folder) => (
             <div className="relative">
-            <Cards click={(value: Note) => console.log(value)} key=   {item.id} note={item as Note} />
+            <Cards click={(value: Note) => setContextNote(value)} key=   {item.id} note={item as Note} />
             </div>
           ))
       }

@@ -1,11 +1,11 @@
 'use client'
-import { Folder } from "@/types/Types"
+import { Folder,Note } from "@/types/Types"
 import { contextValues, useContextValues } from "@/context/ContextValuesProvider"
 import { createDocument } from "@/utils/API";
 import { useState } from "react";
 
 export function renderFolders(folders: Folder[]) {
-  const {setContextFolder } = useContextValues();
+  const {setContextFolder,setContextNote } = useContextValues();
   const [title,setTitle] = useState<string>("");
   return (
     render(folders)
@@ -26,7 +26,10 @@ export function renderFolders(folders: Folder[]) {
           .map((folder: Folder, index: number) => {
             return (
               <div key={folder.id}>
-                <div onClick={() => setContextFolder!(folder!)} className="cursor-pointer before:content-['>'] flex">{folder.title}</div>
+                <div onClick={() =>{ 
+                  setContextFolder!(folder!)
+                  setContextNote!((folder?.content.filter((d) => d.type == "Note") as Note[]).length!=0 ?(folder?.content.filter((d) => d.type == "Note") as Note[])[0] : null)
+                }} className="cursor-pointer before:content-['>'] flex">{folder.title}</div>
                 {
                   render(folder.content as Folder[])
                 }

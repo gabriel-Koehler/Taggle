@@ -25,8 +25,6 @@ export default function Home() {
 
       if (setContextFolder) setContextFolder(data[0]);
       if (setContextNote) setContextNote((data[0].content.filter((d) => d.type == "Note") as Note[])[0])
-      setCookie("currentNote", (data[0].content.filter((d) => d.type == "Note") as Note[])[0])
-      console.log((data[0].content.filter((d) => d.type == "Note") as Note[])[0]);
     }
     setIsInRequest(false);
 
