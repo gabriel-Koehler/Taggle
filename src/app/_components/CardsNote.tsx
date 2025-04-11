@@ -8,13 +8,14 @@ interface propsCards{
   isNew?:boolean;
   parentFolder?:number;
   click?:any;
+  createNoteEmit?:any
 }
 
 export default function cards(props:propsCards){
   const [title,setTitle] = useState<string>("")
   function createNote(level: number): void {
     try {
-      console.log(createDocument(title,"Note",level));
+      props.createNoteEmit(createDocument(title,"Note",level));
     } catch (e) {
       console.log(e);
     }

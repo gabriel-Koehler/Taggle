@@ -3,16 +3,20 @@ import { Folder,Note } from "@/types/Types"
 import { contextValues, useContextValues } from "@/context/ContextValuesProvider"
 import { createDocument } from "@/utils/API";
 import { useState } from "react";
+interface PropsRenderFolders{
+  folder:Folder[]
+  createFolderEmit:any
+}
 
-export function renderFolders(folders: Folder[]) {
+export default function RenderFolders(props:PropsRenderFolders) {
   const {setContextFolder,setContextNote } = useContextValues();
   const [title,setTitle] = useState<string>("");
   return (
-    render(folders)
+    render(props.folder)
   )
   function createfolders(level:number){
     try{
-      console.log(createDocument(title,"Folder",level));
+      props.createFolderEmit(createDocument(title,"Folder",level));
     }catch(e){
       console.log(e);
     }

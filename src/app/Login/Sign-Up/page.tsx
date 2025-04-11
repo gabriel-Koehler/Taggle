@@ -1,5 +1,5 @@
 'use client'
-import { AlertNotification } from "@/app/_components/AlertNotification";
+// import { AlertNotification } from "@/app/_components/AlertNotification";
 import Input from "@/app/_components/Input";
 import { contextValues } from "@/context/ContextValuesProvider";
 import { register } from "@/utils/API";
@@ -33,21 +33,17 @@ export default function SignUp() {
       }, 900); // Duração de expansão antes de voltar
     } else {
       setError(true);
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 4000);
     }
 
   }
   return <>
     <h1 className="text-4xl mb-8">Register</h1>
-    <AlertNotification
+    {/* <AlertNotification
       isShow={isShowAlert}
       haveButton={false}
       info="Erro que ferra tudo desliga e quebra o pc"
       title="Error 500"
-      status="error" />
+      status="error" /> */}
 
 
     <div className="w-80">

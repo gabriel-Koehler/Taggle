@@ -13,6 +13,7 @@ export class Document{
 }
 
 export class Note extends Document{
+  parentFolder!:number;
   content!:string
 }
 export class Folder extends Document{

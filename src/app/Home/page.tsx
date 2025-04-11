@@ -2,13 +2,14 @@
 import { useEffect, useState } from "react"
 import Cards from "../_components/CardsNote"
 import Tiptap from "../_components/TipTap"
-
 import { useContextValues } from "@/context/ContextValuesProvider"
 import { Folder, Note } from "@/types/Types"
 import { getFolders } from "@/utils/API"
 import { setCookie } from "cookies-next"
-import { renderFolders } from "../_components/RenderFolder"
-import { renderNotes } from "../_components/RenderNotes"
+import RenderFolders from "../_components/RenderFolder"
+import RenderNotes from "../_components/RenderNotes"
+
+
 
 export default function Home() {
   const { contextFolder, setContextFolder, setContextNote, contextNote } = useContextValues()
@@ -16,7 +17,30 @@ export default function Home() {
 
   const [testeData] = useState<[string, string, string, string, string]>(["test", "test", "test", "test", "test"])
   const [isInRequest, setIsInRequest] = useState(false)
-
+  const addNewFolder=(folder:Folder)=>{
+    if(folder.parentFolder!=0){
+      const doc=folders.filter((doc)=>{
+        if(doc.type="Folder"){
+          if(doc.id==folder.parentFolder){
+            return doc.content.push(folder)
+          }
+        }
+      })
+      // setFolders([...folders,folders.splice(folders.indexOf(doc),1,doc)])
+    }
+    // setFolders([...folders,folder])
+  }
+  const addNewNote=(note:Note)=>{
+    const doc=folders.filter((doc)=>{
+      if(doc.type="Folder"){
+        if(doc.id==note.parentFolder){
+          return doc.content.push(note)
+        }
+      }
+    })
+    // setFolders(folders.splice(folders.indexOf(doc),1,doc))
+    
+  }
   async function callItens() {
 
     const data: Folder[] = await getFolders(1);
@@ -41,7 +65,7 @@ export default function Home() {
           {
             isInRequest ?
               <div className="skeleton w-40 h-6"></div> :
-              renderFolders(folders)
+              <RenderFolders createFolderEmit={(folder:Folder)=> addNewFolder(folder)} folder={folders}></RenderFolders>
           }
 
         </div>
@@ -61,7 +85,9 @@ export default function Home() {
               testeData.map((item, index) => (
                 <Cards isLoading />
               )) :
-              renderNotes(contextFolder!)
+              <>
+                <RenderNotes createNoteEmit={(note:Note)=> addNewNote(note)} contextFolder={contextFolder as Folder} />
+              </>
           }
           <div className="w-[97%] h-8 bg-gradient-to-b -bottom-11 absolute to-base-100 from-transparent ">
 
