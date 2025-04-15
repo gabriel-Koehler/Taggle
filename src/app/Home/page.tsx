@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import Cards from "../_components/CardsNote"
 import Tiptap from "../_components/TipTap"
 import { useContextValues } from "@/context/ContextValuesProvider"
-import { Folder, Note } from "@/types/Types"
+import { Document, Folder, Note } from "@/types/Types"
 import { getFolders } from "@/utils/API"
 import { setCookie } from "cookies-next"
 import RenderFolders from "../_components/RenderFolder"
@@ -17,29 +17,35 @@ export default function Home() {
 
   const [testeData] = useState<[string, string, string, string, string]>(["test", "test", "test", "test", "test"])
   const [isInRequest, setIsInRequest] = useState(false)
+  
+  const searchDocument=(folderSearch:any, document:Document)=>{
+    if(folderSearch.content.filter((d)=>d.type=="Folder").length==0){
+      return null
+    }
+    return folders.forEach((item)=>{
+      if(item.id!=(document as Folder).parentFolder){
+        searchDocument(item.content as any,document)
+      }else{
+        return item
+      }
+    })
+
+  }
+
   const addNewFolder=(folder:Folder)=>{
+    let doc;
     if(folder.parentFolder!=0){
-      const doc=folders.filter((doc)=>{
+       doc=folders.filter((doc)=>{
         if(doc.type="Folder"){
           if(doc.id==folder.parentFolder){
             return doc.content.push(folder)
           }
         }
       })
-      // setFolders([...folders,folders.splice(folders.indexOf(doc),1,doc)])
+      let addingFolders=folders.splice(folders.indexOf(doc as any),0,doc as any)
+      // setFolders()
     }
-    // setFolders([...folders,folder])
-  }
-  const addNewNote=(note:Note)=>{
-    const doc=folders.filter((doc)=>{
-      if(doc.type="Folder"){
-        if(doc.id==note.parentFolder){
-          return doc.content.push(note)
-        }
-      }
-    })
-    // setFolders(folders.splice(folders.indexOf(doc),1,doc))
-    
+    setFolders([...folders,folder])
   }
   async function callItens() {
 
@@ -74,6 +80,7 @@ export default function Home() {
       <div className="h-[90%] bg-transparent z-0 relative w-[20%]">
 
         <div className="h-11">
+          
         </div>
 
         <div className="w-[97%] h-8 bg-gradient-to-t top-10 absolute to-base-100 from-transparent ">
@@ -86,7 +93,8 @@ export default function Home() {
                 <Cards isLoading />
               )) :
               <>
-                <RenderNotes createNoteEmit={(note:Note)=> addNewNote(note)} contextFolder={contextFolder as Folder} />
+                <RenderNotes createNoteEmit={(note:Note)=>
+                  console.log(searchDocument(folders,note))} contextFolder={contextFolder as Folder} />
               </>
           }
           <div className="w-[97%] h-8 bg-gradient-to-b -bottom-11 absolute to-base-100 from-transparent ">
