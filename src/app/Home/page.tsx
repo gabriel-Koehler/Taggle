@@ -13,16 +13,16 @@ import RenderNotes from "../_components/RenderNotes"
 
 export default function Home() {
   const { contextFolder, setContextFolder, setContextNote, contextNote } = useContextValues()
-  const [folders, setFolders] = useState<Folder[]>([])
+  const [folders, setFolders] = useState<Folder[]>()
 
   const [testeData] = useState<[string, string, string, string, string]>(["test", "test", "test", "test", "test"])
   const [isInRequest, setIsInRequest] = useState(false)
   
   const searchDocument=(folderSearch:any, document:Document)=>{
-    if(folderSearch.content.filter((d)=>d.type=="Folder").length==0){
+    if(folderSearch.content.filter((d:any)=>d.type=="Folder").length==0){
       return null
     }
-    return folders.forEach((item)=>{
+    return folders!.forEach((item)=>{
       if(item.id!=(document as Folder).parentFolder){
         searchDocument(item.content as any,document)
       }else{
@@ -32,24 +32,30 @@ export default function Home() {
 
   }
 
-  const addNewFolder=(folder:Folder)=>{
-    let doc;
+  const addNewFolder=(folders:Folder[] ,folder:Folder)=>{
+    console.log(folder);
+    let doc:any;
     if(folder.parentFolder!=0){
-       doc=folders.filter((doc)=>{
+      doc=folders.filter((doc)=>{
+        
         if(doc.type="Folder"){
-          if(doc.id==folder.parentFolder){
-            return doc.content.push(folder)
-          }
-        }
-      })
-      let addingFolders=folders.splice(folders.indexOf(doc as any),0,doc as any)
-      // setFolders()
+          
+          console.log(doc, doc.id);
+         if(doc.id==folder.parentFolder){
+          console.log(doc, doc.id,"if parentFolder Ok");
+          return doc.content.push(folder)
+         }
+       }
+     })
+     console.log(doc);
+     
+     let addingFolders=folders.splice(folders.findIndex((a:Folder)=>a.id==doc.id),0,doc)
+    console.log(addingFolders);
     }
-    setFolders([...folders,folder])
   }
   async function callItens() {
 
-    const data: Folder[] = await getFolders(1);
+    const data: [Folder] = await getFolders(1);
     if (data) {
       setFolders(data);
 
@@ -67,11 +73,11 @@ export default function Home() {
     <div className="flex gap-[14px] h-[92vh]">
       <div className="h-[90%] w-[10%]">
         <div className="h-11"></div>
-        <div className="h-full border rounded-md text-sm p-2 border-primary100 ">
+        <div className="h-full border rounded-md text-sm p-2 border-primary100 box-content overflow-hidden overflow-y-auto">
           {
             isInRequest ?
               <div className="skeleton w-40 h-6"></div> :
-              <RenderFolders createFolderEmit={(folder:Folder)=> addNewFolder(folder)} folder={folders}></RenderFolders>
+              <RenderFolders createFolderEmit={(folder:Folder)=> addNewFolder(folders,folder)} folder={folders}></RenderFolders>
           }
 
         </div>

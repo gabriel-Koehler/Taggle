@@ -3,6 +3,7 @@ import { setCookie, getCookie } from 'cookies-next';
 const api=axios.create({
   baseURL:"http://localhost:9999/",
 })
+
 export const getAll =async()=>{
   try{
     const response =await api.get("/user")
@@ -29,7 +30,6 @@ export const getFolders=async(userId:number)=>{
   }
 }
 
-
 export const register=async(username:string,password:string)=>{
   try{
     const response =await api.post("/signin",
@@ -44,24 +44,27 @@ export const register=async(username:string,password:string)=>{
 export const createDocument=async(title:string,type:string,parentFolderId:number)=>{
   try{
     //pqp tudo muita gambirra é logica 
+    // console.log(parentFolderId);
     const folderId=parentFolderId!=null? parentFolderId:0
     const token = await getCookie("token")
     let response;
     if(type=="Folder"){
-      response=api.post("/documents/create/folder/"+folderId,{"title":title},
+      response=await api.post("/documents/create/folder/"+folderId,{"title":title},
         {
           withCredentials:true,
           headers: { Authorization: `Bearer ${token}` }
         }
       )
+      return response.data
     }
     else{
-      response=api.post("/documents/create/note/"+parentFolderId,{"title":title},
+      response=await api.post("/documents/create/note/"+parentFolderId,{"title":title},
         {
           withCredentials:true,
           headers: { Authorization: `Bearer ${token}` }
         }
       )
+      return response.data
     }
     
   }catch(error){

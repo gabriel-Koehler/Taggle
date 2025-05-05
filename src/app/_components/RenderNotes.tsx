@@ -14,8 +14,8 @@ export default function RenderNotes(props:PropsRenderNotes) {
         props.contextFolder?.content
           .filter((e) => e.type == "Note")
           .map((item: Note | Folder) => (
-            <div className="relative">
-            <Cards click={(value: Note) => setContextNote!(value!)} key=   {item.id} note={item as Note} />
+            <div key={item.id} className="relative">
+            <Cards click={(value: Note) => setContextNote!(value!)} note={item as Note} />
             </div>
           ))
       }

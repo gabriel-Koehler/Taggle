@@ -9,20 +9,23 @@ interface PropsRenderFolders{
 }
 
 export default function RenderFolders(props:PropsRenderFolders) {
-  const {setContextFolder,setContextNote } = useContextValues();
+  const {setContextFolder,setContextNote,contextFolder } = useContextValues();
   const [title,setTitle] = useState<string>("");
   return (
     render(props.folder)
   )
-  function createfolders(level:number){
+  async function createfolders(level:number){
     try{
-      props.createFolderEmit(createDocument(title,"Folder",level));
+      let folder:any=await createDocument(title,"Folder",level)
+      console.log(folder);
+      
+      props.createFolderEmit(folder);
     }catch(e){
       console.log(e);
     }
     console.log(level);   
   }
-  function render(folders: Folder[]) {
+  function render(folders: Folder[],level:number) {
     return (
       <div className="bg-transparent pl-1">
         {
@@ -33,16 +36,16 @@ export default function RenderFolders(props:PropsRenderFolders) {
                 <div onClick={() =>{ 
                   setContextFolder!(folder!)
                   setContextNote!((folder?.content.filter((d) => d.type == "Note") as Note[]).length!=0 ?(folder?.content.filter((d) => d.type == "Note") as Note[])[0] : null)
-                }} className="cursor-pointer before:content-['>'] flex">{folder.title}</div>
+                }} className={(contextFolder?.id==folder.id ? "text-primaryColor":"") + " cursor-pointer before:content-['>'] flex"} >{folder.title}</div>
                 {
-                  render(folder.content as Folder[])
+                  render(folder.content as Folder[],folder.id)
                 }
               </div>
             )
           })
         }
         <input type="text"
-          onKeyDown={(e) => e.code=="Enter"? createfolders(folders[0].parentFolder):null}
+          onKeyDown={(e) => e.code=="Enter"? createfolders(level):null}
           placeholder="Folder..."
           className="border-none bg-transparent w-full focus-visible:outline-none opacity-45"
           onChange={(e) => setTitle(e.target.value) }
