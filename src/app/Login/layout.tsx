@@ -1,8 +1,8 @@
 'use client'
 import { Component, ReactNode, useContext, useRef, useState } from "react";
-import Input from "../_components/Input";
+import Input from "../../components/Input";
 import svg from "../../../public/user";
-import { contextValues } from "@/context/ContextValuesProvider";
+import { contextValues } from "@/src/context/ContextValuesProvider";
 
 export default function loginLayout({ children }: { children: ReactNode }) {
   const circle = useRef<SVGPathElement | null>(null);

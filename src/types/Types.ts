@@ -11,12 +11,15 @@ export class Document{
   atCreated!:Date;
   atLastAlteration!:Date;
 }
-
 export class Note extends Document{
-  parentFolder!:number;
+  parentFolder!:Folder;
   content!:string
 }
 export class Folder extends Document{
-  parentFolder!:number;
+  parentFolder!:Folder;
   content!:[item:Folder | Note]
+}
+export interface PointsContextMenu{
+  x:number,
+  y:number
 }

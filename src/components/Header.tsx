@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react"
 import ThemeSwitcher from "./ThemeSwitcher";
 import Input from "./Input";
-import logo from "../../../public/taggalgeLogo.svg"
+import logo from '../../public/taggalgeLogo.svg'
 import Image from "next/image";
 import ConfigPopSide from "./ConfigPopSide";
-import { useContextValues } from "@/context/ContextValuesProvider";
+import { useContextValues } from "@/src/context/ContextValuesProvider";
 
 export default function Header(){
   const router = usePathname();

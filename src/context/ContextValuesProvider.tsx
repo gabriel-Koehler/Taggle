@@ -1,6 +1,6 @@
 'use client'
-import { Folder, Note } from "@/types/Types";
-import { createContext, useContext, useMemo, useState } from "react";
+import { Folder, Note, PointsContextMenu } from "@/src/types/Types";
+import { createContext, ReactElement, ReactNode, Ref, useContext, useMemo, useState } from "react";
 
 interface ContextValues{
   contextNote?:Note | null
@@ -9,15 +9,51 @@ interface ContextValues{
   setCircleScale?: (scale:number) => void
   contextFolder?:Folder | null
   setContextFolder?: (folder:Folder | null) => void
+  setPointsContextMenu?:(points:PointsContextMenu) => void
+  pointsContextMenu?: PointsContextMenu
+  setIsContextMenuFolder?:(is:boolean) => void
+  isContextMenuFolder?:boolean
+  setFolderElemRef?:(points:ReactElement) => void
+  folderElemRef?: ReactElement
+
 }
 export const contextValues=createContext<ContextValues>({});
 
 export default function ContextValuesProvider({children}:{children: React.ReactNode}){
   const [circleScale,setCircleScale] = useState(1);
+  const [pointsContextMenu,setPointsContextMenu] = useState({x:0,y:0});
+  const [folderElemRef,setFolderElemRef] = useState(<></>);
+  const [isContextMenuFolder,setIsContextMenuFolder] = useState(false);
   const [contextFolder,setContextFolder] = useState<null | Folder>();
   const [contextNote,setContextNote] = useState<null | Note>();
 
-  const value=useMemo(()=>({circleScale,setCircleScale,contextFolder,setContextFolder,contextNote,setContextNote}),[circleScale,setCircleScale,contextFolder,setContextFolder,contextNote,setContextNote])
+  const value=useMemo(()=>({
+    isContextMenuFolder,
+    setIsContextMenuFolder,
+    pointsContextMenu,
+    setPointsContextMenu,
+    circleScale,
+    setCircleScale,
+    contextFolder,
+    setContextFolder,
+    contextNote,
+    setContextNote,
+    folderElemRef,
+    setFolderElemRef
+  }),[
+      isContextMenuFolder,
+      setIsContextMenuFolder,
+      pointsContextMenu,
+      setPointsContextMenu,
+      circleScale,
+      setCircleScale,
+      contextFolder,
+      setContextFolder,
+      contextNote,
+      setContextNote,
+      folderElemRef,
+      setFolderElemRef
+    ])
 
   return<>
   <contextValues.Provider value={value}>

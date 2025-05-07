@@ -1,130 +1,133 @@
 'use client'
 import { useEffect, useState } from "react"
-import Cards from "../_components/CardsNote"
-import Tiptap from "../_components/TipTap"
-import { useContextValues } from "@/context/ContextValuesProvider"
-import { Document, Folder, Note } from "@/types/Types"
-import { getFolders } from "@/utils/API"
+import Cards from "../../components/CardsNote"
+import Tiptap from "../../components/TipTap"
+import { useContextValues } from "@/src/context/ContextValuesProvider"
+import { Document, Folder, Note } from "@/src/types/Types"
+import { getFolders } from "@/src/utils/API"
 import { setCookie } from "cookies-next"
-import RenderFolders from "../_components/RenderFolder"
-import RenderNotes from "../_components/RenderNotes"
-
+import RenderFolders from "../../components/RenderFolder"
+import RenderNotes from "../../components/RenderNotes"
+import Context from "@/src/components/Context"
+import { AnimatePresence } from "motion/react"
 
 
 export default function Home() {
-  const { contextFolder, setContextFolder, setContextNote, contextNote } = useContextValues()
+  const { contextFolder,contextNote,setContextFolder, setContextNote } = useContextValues()
   const [folders, setFolders] = useState<Folder[]>()
 
   const [testeData] = useState<[string, string, string, string, string]>(["test", "test", "test", "test", "test"])
   const [isInRequest, setIsInRequest] = useState(false)
-  
-  const searchDocument=(folderSearch:any, document:Document)=>{
-    if(folderSearch.content.filter((d:any)=>d.type=="Folder").length==0){
+
+  const searchDocument = (folderSearch: Folder, id:number) => {
+    if (folderSearch.content.filter((d: any) => d.type == "Folder").length == 0) {
       return null
     }
-    return folders!.forEach((item)=>{
-      if(item.id!=(document as Folder).parentFolder){
-        searchDocument(item.content as any,document)
-      }else{
+    folderSearch.content.forEach((item) => {
+      if (item.id != id) {
+        console.log(item);
+        return searchDocument(item.content as any, id)
+      } else {
+        console.log(item);
         return item
       }
     })
 
   }
 
-  const addNewFolder=(folders:Folder[] ,folder:Folder)=>{
-    console.log(folder);
-    let doc:any;
-    if(folder.parentFolder!=0){
-      doc=folders.filter((doc)=>{
-        
-        if(doc.type="Folder"){
-          
-          console.log(doc, doc.id);
-         if(doc.id==folder.parentFolder){
-          console.log(doc, doc.id,"if parentFolder Ok");
-          return doc.content.push(folder)
-         }
-       }
-     })
-     console.log(doc);
-     
-     let addingFolders=folders.splice(folders.findIndex((a:Folder)=>a.id==doc.id),0,doc)
-    console.log(addingFolders);
+  const addNewFolder = (folders: Folder[], id:number) => {
+    console.log(id);
+    const [doc,setDoc]=useState<any>();
+    for(let item of folders.filter((a)=>a.type=="Folder") ){
+      console.log(item);
+      if (item.id != id) {
+        console.log(item);
+        setDoc(searchDocument(item.content as any, id))
+      } else {
+        console.log(item);
+        setDoc(item)
+      }
     }
-  }
-  async function callItens() {
-
-    const data: [Folder] = await getFolders(1);
-    if (data) {
-      setFolders(data);
-
-      if (setContextFolder) setContextFolder(data[0]);
-      if (setContextNote) setContextNote((data[0].content.filter((d) => d.type == "Note") as Note[])[0])
-    }
-    setIsInRequest(false);
-
+    console.log(doc);
+    // não cai aqui 
+    
   }
 
-  useEffect(() => {
-    callItens();
-  }, []);
-  return <>
-    <div className="flex gap-[14px] h-[92vh]">
-      <div className="h-[90%] w-[10%]">
-        <div className="h-11"></div>
-        <div className="h-full border rounded-md text-sm p-2 border-primary100 box-content overflow-hidden overflow-y-auto">
-          {
-            isInRequest ?
-              <div className="skeleton w-40 h-6"></div> :
-              <RenderFolders createFolderEmit={(folder:Folder)=> addNewFolder(folders,folder)} folder={folders}></RenderFolders>
-          }
 
-        </div>
+async function callItens() {
 
-      </div>
-      <div className="h-[90%] bg-transparent z-0 relative w-[20%]">
+  const data: [Folder] = await getFolders(1);
+  if (data) {
+    setFolders(data);
 
-        <div className="h-11">
-          
-        </div>
+    if (setContextFolder) setContextFolder(data[0]);
+    if (setContextNote) setContextNote((data[0].content.filter((d) => d.type == "Note") as Note[])[0])
+  }
+  setIsInRequest(false);
 
-        <div className="w-[97%] h-8 bg-gradient-to-t top-10 absolute to-base-100 from-transparent ">
-        </div>
+}
 
-        <div className="overflow-y-auto py-6 flex flex-col gap-3 h-full scrollbar-thin scrollbar-thumb-lime-300">
-          {
-            isInRequest ?
-              testeData.map((item, index) => (
-                <Cards isLoading />
-              )) :
-              <>
-                <RenderNotes createNoteEmit={(note:Note)=>
-                  console.log(searchDocument(folders,note))} contextFolder={contextFolder as Folder} />
-              </>
-          }
-          <div className="w-[97%] h-8 bg-gradient-to-b -bottom-11 absolute to-base-100 from-transparent ">
-
-          </div>
-        </div>
-
-      </div>
-
-      <div className="h-[90%] w-[70%]">
-        <div className="h-11 flex items-center">
-        </div>
-
-        <div className="h-full border rounded-md border-primary100 ">
-          {
-            isInRequest ?
-              <Tiptap isLoading={true}></Tiptap>
-              :
-              <Tiptap content={contextNote?.content}></Tiptap>
-          }
-        </div>
-
+useEffect(() => {
+  callItens();
+}, []);
+return <>
+  <div className="flex gap-[14px] h-[92vh]">
+  <AnimatePresence mode="wait" initial={true} >
+    <Context />
+  </AnimatePresence>
+    <div className="h-[90%] w-[10%]">
+      <div className="h-11"></div>
+      <div className="h-full border rounded-md text-sm p-2 border-primary100 box-content overflow-hidden overflow-y-auto">
+        {
+          isInRequest ?
+            <div className="skeleton w-40 h-6"></div> :
+            <RenderFolders createFolderEmit={(folder: Folder) => addNewFolder(folders!, folder.parentFolder.id)} folder={folders!}></RenderFolders>
+        }
       </div>
 
     </div>
-  </>
+    <div className="h-[90%] bg-transparent z-0 relative w-[20%]">
+
+      <div className="h-11">
+
+      </div>
+
+      <div className="w-[97%] h-8 bg-gradient-to-t top-10 absolute to-base-100 from-transparent ">
+      </div>
+
+      <div className="overflow-y-auto py-6 flex flex-col gap-3 h-full scrollbar-thin scrollbar-thumb-lime-300">
+        {
+          isInRequest ?
+            testeData.map((item, index) => (
+              <Cards isLoading />
+            )) :
+            <>
+              <RenderNotes createNoteEmit={(note: Note) =>
+                console.log(note)} contextFolder={contextFolder as Folder} />
+            </>
+        }
+        <div className="w-[97%] h-8 bg-gradient-to-b -bottom-11 absolute to-base-100 from-transparent ">
+
+        </div>
+      </div>
+
+    </div>
+
+    <div className="h-[90%] w-[70%]">
+      <div className="h-11 flex items-center">
+      </div>
+
+      <div className="h-full border rounded-md border-primary100 ">
+        {
+          isInRequest ?
+            <Tiptap isLoading={true}></Tiptap>
+            :
+            <Tiptap content={contextNote?.content}></Tiptap>
+        }
+      </div>
+
+    </div>
+
+  </div>
+</>
 }

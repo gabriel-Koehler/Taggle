@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from "react";
-import Input from "../_components/Input";
+import Input from "../../components/Input";
 import svg from "../../../public/user";
 
 export default function loginPage() {

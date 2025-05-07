@@ -1,5 +1,5 @@
 'use client'
-import ContextValuesProvider from "@/context/ContextValuesProvider";
+import ContextValuesProvider from "@/src/context/ContextValuesProvider";
 import { ThemeProvider } from "next-themes";
 import { ReactNode, useEffect, useState } from "react";
 

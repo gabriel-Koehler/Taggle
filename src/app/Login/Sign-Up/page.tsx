@@ -1,8 +1,8 @@
 'use client'
 // import { AlertNotification } from "@/app/_components/AlertNotification";
-import Input from "@/app/_components/Input";
-import { contextValues } from "@/context/ContextValuesProvider";
-import { register } from "@/utils/API";
+import Input from "@/src/components/Input";
+import { contextValues } from "@/src/context/ContextValuesProvider";
+import { register } from "@/src/utils/API";
 import { AnimatePresence } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
@@ -24,12 +24,12 @@ export default function SignUp() {
       };
       console.log(user.username, user.password);
       console.log(register(username, password));
-      if(context?.setCircleScale) context?.setCircleScale(60); // Expande o círculo
-      
+      if (context?.setCircleScale) context?.setCircleScale(60); // Expande o círculo
+
 
       setTimeout(() => {
         router.push('/Login/Sign-In')
-        if(context?.setCircleScale) context?.setCircleScale(1); // Reduz o círculo de volta ao original
+        if (context?.setCircleScale) context?.setCircleScale(1); // Reduz o círculo de volta ao original
       }, 900); // Duração de expansão antes de voltar
     } else {
       setError(true);

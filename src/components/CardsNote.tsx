@@ -1,5 +1,5 @@
-import { Note } from "@/types/Types";
-import { createDocument } from "@/utils/API";
+import { Note } from "@/src/types/Types";
+import { createDocument } from "@/src/utils/API";
 import { useState } from "react";
 
 interface propsCards{

@@ -2,8 +2,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AppProvider from "../providers/AppProvider";
-import Header from "./_components/Header";
+import Header from "../components/Header";
 import { Darker_Grotesque, Work_Sans } from "next/font/google";
+import Context from "../components/Context";
 
 
 const darkerGrotesque = Darker_Grotesque({
@@ -37,6 +38,7 @@ export default function RootLayout({
       >
         <AppProvider>
 
+          
           <Header />
 
           {/* <main> */}

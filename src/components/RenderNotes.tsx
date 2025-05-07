@@ -1,6 +1,6 @@
-import { Folder, Note } from "@/types/Types";
+import { Folder, Note } from "@/src/types/Types";
 import Cards from "./CardsNote";
-import { useContextValues } from "@/context/ContextValuesProvider";
+import { useContextValues } from "@/src/context/ContextValuesProvider";
 interface PropsRenderNotes{
   createNoteEmit:any
   contextFolder: Folder

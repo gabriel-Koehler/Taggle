@@ -1,13 +1,13 @@
 'use client'
-import Input from "@/app/_components/Input";
-import ContextValuesProvider, { contextValues, useContextValues } from "@/context/ContextValuesProvider";
-import { login } from "@/utils/API";
+import Input from "@/src/components/Input";
+import ContextValuesProvider, { contextValues, useContextValues } from "@/src/context/ContextValuesProvider";
+import { login } from "@/src/utils/API";
 import { motion } from "motion/react"
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
 export default function SignIn() {
-  const {circleScale,setCircleScale} = useContextValues()
+  const { circleScale, setCircleScale } = useContextValues()
   const router = useRouter()
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
