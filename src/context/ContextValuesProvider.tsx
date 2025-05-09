@@ -1,6 +1,6 @@
 'use client'
 import { Folder, Note, PointsContextMenu } from "@/src/types/Types";
-import { createContext, ReactElement, ReactNode, Ref, useContext, useMemo, useState } from "react";
+import { createContext, ReactElement, ReactNode, Ref, useContext, useMemo, useRef, useState } from "react";
 
 interface ContextValues{
   contextNote?:Note | null
@@ -13,16 +13,15 @@ interface ContextValues{
   pointsContextMenu?: PointsContextMenu
   setIsContextMenuFolder?:(is:boolean) => void
   isContextMenuFolder?:boolean
-  setFolderElemRef?:(points:ReactElement) => void
-  folderElemRef?: ReactElement
-
+  folderDetailsRef?: React.RefObject<HTMLDetailsElement | null>;
+  setFolderDetailsRef?: (ref: React.RefObject<HTMLDetailsElement | null>) => void;
 }
 export const contextValues=createContext<ContextValues>({});
 
 export default function ContextValuesProvider({children}:{children: React.ReactNode}){
   const [circleScale,setCircleScale] = useState(1);
   const [pointsContextMenu,setPointsContextMenu] = useState({x:0,y:0});
-  const [folderElemRef,setFolderElemRef] = useState(<></>);
+  const [folderDetailsRef, setFolderDetailsRef] = useState<React.RefObject<HTMLDetailsElement> | null>();
   const [isContextMenuFolder,setIsContextMenuFolder] = useState(false);
   const [contextFolder,setContextFolder] = useState<null | Folder>();
   const [contextNote,setContextNote] = useState<null | Note>();
@@ -38,8 +37,8 @@ export default function ContextValuesProvider({children}:{children: React.ReactN
     setContextFolder,
     contextNote,
     setContextNote,
-    folderElemRef,
-    setFolderElemRef
+    folderDetailsRef,
+    setFolderDetailsRef
   }),[
       isContextMenuFolder,
       setIsContextMenuFolder,
@@ -51,8 +50,8 @@ export default function ContextValuesProvider({children}:{children: React.ReactN
       setContextFolder,
       contextNote,
       setContextNote,
-      folderElemRef,
-      setFolderElemRef
+      folderDetailsRef,
+      setFolderDetailsRef
     ])
 
   return<>

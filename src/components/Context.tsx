@@ -1,25 +1,60 @@
-import { useEffect, useRef } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { useContextValues } from "../context/ContextValuesProvider";
 import {motion} from 'motion/react'
+import { createDocument } from "../utils/API";
 
 export default function Context() {
-  const {isContextMenuFolder,pointsContextMenu,setIsContextMenuFolder,contextFolder,folderElemRef}=useContextValues()
+  const {isContextMenuFolder,pointsContextMenu,setIsContextMenuFolder,contextFolder,folderDetailsRef}=useContextValues()
+  const [inputRef,setinputRef]=useState<HTMLInputElement>()
   const ref=useRef(null)
+  const [title,setTitle] = useState<string>("");
   useEffect(()=>{
 
     const clickOutSide=(event: { target: any; })=>{
       if (!ref.current?.contains(event.target)){
         setIsContextMenuFolder!(false)
       }
+      if(folderDetailsRef?.current){
+        folderDetailsRef.current.open=false;
+      }
     }
     window.addEventListener("mousedown",clickOutSide)
-    // return ()=>{
-    //   window.removeEventListener("mousedown",clickOutSide)
-    // }
+    return ()=>{
+      window.removeEventListener("mousedown",clickOutSide)
+    }
   },[ref])
+
   useEffect(()=>{
-    console.log(folderElemRef);
-  },[])
+    if(folderDetailsRef?.current){
+      folderDetailsRef.current.open=true;
+      folderDetailsRef.current.appendChild(document.createElement('input'))
+    }
+    console.log(folderDetailsRef?.current);
+    // folderDetailsRef?.current?.children[0].getAttribute()
+    // if(folderDetailsRef?.current){
+    //   folderDetailsRef.current.style.display = "block";
+    //   folderDetailsRef.current.focus();
+    // }
+  },[folderDetailsRef])
+  async function createfolders(level:number){
+    try{
+      let folder:any=await createDocument(title,"Folder",level)
+      console.log(folder);
+      // props.createFolderEmit(folder);
+    }catch(e){
+      console.log(e);
+    }
+    console.log(level);
+  }
+  function input(level:number){
+    return <input type="text"
+              ref={inputRef}
+              onKeyDown={(e) => e.code=="Enter"? createfolders(level):null}
+              placeholder="Folder..."
+              className="hidden border-none bg-transparent hover:block group-hover:block w-full focus:block focus-visible:outline-none opacity-45"
+              onChange={(e) => setTitle(e.target.value) }
+            />
+  }
   return(<>
     {
       isContextMenuFolder&&
@@ -36,7 +71,7 @@ export default function Context() {
         >
         <div className="hover:bg-primary300 cursor-pointer">Criar nova Pasta</div>
         <div>{contextFolder!.title}</div>
-        <div>{ref.current}</div>
+        
         <div className="hover:bg-primary300 cursor-pointer">Criar nova Nota</div>
         <div className="hover:bg-primary300 cursor-pointer">{pointsContextMenu!.x}</div>
         <div className="hover:bg-primary300 cursor-pointer">{pointsContextMenu!.y}</div>

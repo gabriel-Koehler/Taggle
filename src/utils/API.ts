@@ -69,6 +69,8 @@ export const createDocument=async(title:string,type:string,parentFolderId:number
     
   }catch(error){
 
+  }finally{
+    refreshToken()
   }
 }
 export const login=async(username:string,password:string)=>{
